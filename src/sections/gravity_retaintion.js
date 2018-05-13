@@ -28,7 +28,7 @@ function GravityRetainingWall(opt){
     this.top_thickness = Number(opt.c);
     this.stem_thickness = this.b + this.top_thickness + this.g;
     this.heel_length = Number(opt.d);
-    this.e = this.f = (opt.e === opt.f); //base_thickness;
+    this.e = this.f = opt.e = Number(opt.f); //base_thickness;
     this.base_width = this.toe_length + this.b + this.top_thickness + this.g + this.heel_length;
     this.wall_height = Number(opt.h);
     this.Mathh = {
@@ -214,8 +214,10 @@ GravityRetainingWall.prototype.max_eccentricity = function(){
 }
 
 GravityRetainingWall.prototype.isDesignEfficient = function(eccentricityfn){
-    return   eccentricityfn() < this.max_eccentricity();
+    return   eccentricityfn() <= this.max_eccentricity();
 }
+
+
 
 /**
  * Base Pressure calculation
