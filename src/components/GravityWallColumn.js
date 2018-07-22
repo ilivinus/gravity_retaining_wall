@@ -3,9 +3,9 @@
  */
 import React, { Component } from 'react';
 import {InputGroup, InputGroupAddon, Input, Table, TableProps, TabContent, Button } from 'reactstrap';
-import { GravityRetainingWall, setConstantTerms} from './sections/gravity_retaintion';
+import { GravityRetainingWall, setConstantTerms} from '../sections/coulomb_method';
 
-class GravityWall extends Component{
+class GravityWallColumn extends Component{
 
     constructor(props){
         super(props);
@@ -83,6 +83,7 @@ class GravityWall extends Component{
         return (
                 <div className="container">                   
                     <div className="row">
+                    <h2>Gravity Retaining Wall : Coulomb's Design Method</h2>
                         <div className="col-md-12">               
                         <br/>
                             <div className="row">
@@ -193,11 +194,11 @@ class GravityWall extends Component{
                         </div>
                     </div>
                     <br/>
-                    <div className="row">
+                    <div className="row">                    
                         {GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ?  output: "" }
                     </div>
                 </div>
         );
     }
 }
-export default GravityWall;
+export default GravityWallColumn;

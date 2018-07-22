@@ -14,6 +14,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -49,10 +50,10 @@ export default class Home extends React.Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        <NavLink href="/gravity_wall">COULOMB'S DESIGN METHOD</NavLink>
-                                    </DropdownItem>
+                                        <Link to="/gravity_wall_column">COULOMB'S DESIGN METHOD</Link>
+                                            </DropdownItem>
                                     <DropdownItem>
-                                        RANKINE'S DESIGN METHOD
+                                    <Link to="/gravity_wall_rankine">RANKINE'S DESIGN METHOD</Link>
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>
