@@ -13,7 +13,7 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem } from 'reactstrap';
+    DropdownItem, Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
@@ -39,7 +39,7 @@ export default class Home extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/">Dashboard</NavLink>
+                                <NavLink href="/dashboard">Dashboard</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/about">About</NavLink>
@@ -57,13 +57,16 @@ export default class Home extends React.Component {
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>
-                                        Method 3
+                                        <Link to="/cantilever_down">CANTILEVER RETAINING</Link>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                    <Link to="/cantilever_up">CANTILEVER UP</Link>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
                     </Collapse>
-                </Navbar>
+                </Navbar>                
             </div>
         );
     }

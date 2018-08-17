@@ -3,7 +3,10 @@ let constants = {
     r : 19.0,
     factorConst : 1.5
 };
-
+Number.prototype.toDec = function(num){
+    return Number(Number(this).toFixed(num));
+}
+GravityRetainingWall.prototype = Object.create(Number.prototype);
 exports.setConstantTerms =  function setConstantTerms(rc,r,factorConst){
     constants.factorConst = factorConst;
     constants.rc = rc;
@@ -14,7 +17,7 @@ exports.setConstantTerms =  function setConstantTerms(rc,r,factorConst){
  * The wall is first proportioned by assuming realistic figures for a, b, c, d, e, f and g
  * @param {*} opt
  */
-function GravityRetainingWall(opt){
+function GravityRetainingWall(opt){    
     if(!opt.a || opt.a < 0) throw new Error('Invalid entry (a) for toe length of the wall');
     if(!opt.b || opt.b < 0) throw new Error('Invalid entry (b)');
     if(!opt.c || opt.c < 0) throw new Error('Invalid entry (c) for top thickness of the wall');
@@ -310,7 +313,7 @@ GravityRetainingWall.prototype.summationM_ = function(Hp){
 //Lever arm of summation Rv
 GravityRetainingWall.prototype.leverArmSignRv_ = function(Hp){
     if(isNaN(Hp)) throw new TypeError("Invalid argument");
-    return (this.summationM_(Hp)/this.summationRv_(Hp)).toFixed(2);
+    return (this.summationM_(Hp)/this.summationRv_(Hp)).toDec(2);
 }
 
 exports.GravityRetainingWallRankine = GravityRetainingWall;
