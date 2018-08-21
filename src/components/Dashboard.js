@@ -25,7 +25,7 @@ class Dashboard extends React.Component{
                             <CardBody>
                                 <CardSubtitle>Gravity Retaining Wall</CardSubtitle>                                
                                 <CardText>Rankine's Method</CardText>
-                                <NavLink className="btn btn-sm btn-primary" href="/gravity_wall_rankine">Go To Details</NavLink>                                                                
+                                <NavLink className="btn btn-sm btn-primary" href="/gravity_wall_rankine">Go To Section</NavLink>                                                                
                             </CardBody>
                         </Card>
                     </Col>                    
@@ -37,7 +37,7 @@ class Dashboard extends React.Component{
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
                                 <CardText>With a Horizontal Backfill Surface, and Water Table is Below the Base of the Wall</CardText>
-                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_down">Go To Details</NavLink>                                                                
+                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_down">Go To Section</NavLink>                                                                
                             </CardBody>
                         </Card>
                     </Col>
@@ -46,7 +46,7 @@ class Dashboard extends React.Component{
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
                                 <CardText>With Water Table at Some Distance from the Surface of the Backfill</CardText>
-                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_backfill_surf">Go To Details</NavLink>
+                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_backfill_surf">Go To Section</NavLink>
                                                                                           
                             </CardBody>
                         </Card>
@@ -56,7 +56,7 @@ class Dashboard extends React.Component{
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
                                 <CardText>With a Horizontal Backfill Surface, With the Water Table at the Surface</CardText>
-                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_up">Go To Details</NavLink>                                                                      
+                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_up">Go To Section</NavLink>                                                                      
                             </CardBody>
                         </Card>
                     </Col>
@@ -64,8 +64,8 @@ class Dashboard extends React.Component{
                         <Card>
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
-                                <CardText>For Inclined Backfill and Water Table is Below the Base of the Wall( Using Rankine's Analysis</CardText>
-                                <Button color="primary">Go To Details</Button>
+                                <CardText>For Inclined Backfill and Water Table is Below the Base of the Wall( Using Rankine's Analysis</CardText>                                
+                                <NavLink className="btn btn-sm btn-primary" href="/cantilever_rankine">Go To Section</NavLink>
                             </CardBody>
                         </Card>
                     </Col>

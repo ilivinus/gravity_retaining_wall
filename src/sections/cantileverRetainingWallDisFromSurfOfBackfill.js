@@ -48,7 +48,7 @@ function CantileverRetainingWall(opt){
     }
 }
 ///Pass parameter r when water table is below the surface of the wall
-CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, phi1,rho, phiB, F,r}){
+CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, phi1, phiB, F,r}){
     if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate');
     if(!q || !q < 0) throw new Error('Invalid entry for q');
     if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1');    

@@ -60,7 +60,7 @@ class GravityWallColumn extends Component{
                 <td>Angle of Inclination of the backface</td>
                 <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.alpha(): 'N/A'}</td>
                 <td>Ka</td>
-                <td>##</td>                                
+                <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(): 'N/A'}</td>
             </tr>
             <tr>
                 <td>W1 Shape 1</td>
@@ -72,7 +72,7 @@ class GravityWallColumn extends Component{
             </tr>
             <tr>
                 <td>W4 Shape 4</td>
-                <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w3(): 'N/A'}</td>
+                <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w4(): 'N/A'}</td>
                 <td>Ph</td>
                 <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ph(): 'N/A'}</td>
                 <td>Pv</td>
@@ -134,7 +134,7 @@ class GravityWallColumn extends Component{
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">h</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">H</InputGroupAddon>
                                         <Input  value={this.state["h"]} onChange={this.handleChange.bind(this,"h")} />
                                     </InputGroup>
                                 </div>
