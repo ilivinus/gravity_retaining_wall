@@ -15,7 +15,7 @@ class GravityWallColumn extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, Hp: '',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, Hp: 'l',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
          this.toggle = this.toggle.bind(this);
@@ -28,16 +28,16 @@ class GravityWallColumn extends Component{
             console.log("enter liv");
             for(let v = 0; v < keys.length; v++){
                 if(this.state[keys[v]] === ''){                    
-                    cb({ isValid : false});
-                    break;                
+                   return  cb({ isValid : false});                                    
                 }
             }
-            return cb();
+            return cb({isValid : true});
         }
         liv.call(this,obj => {
             if(obj && !obj.isValid){ 
                 this.setState({isValid : false })
             }else{ 
+                
                 this.solveGravityWall(); 
                 this.toggle('modal2');
             }});
