@@ -1,6 +1,6 @@
 import React from 'react';
 import { Jumbotron,Button, Row, Col, Card, CardBody, CardText, CardSubtitle, NavLink } from '../../node_modules/reactstrap';
-class Dashboard extends React.Component{
+class CantileverDashboard extends React.Component{
     constructor(props) {
         super(props);
         
@@ -9,39 +9,18 @@ class Dashboard extends React.Component{
     render(){
         return (<div>  
             <br/>          
-            <Jumbotron>                
+            <Jumbotron>   
                 <Row>
                     <Col md="6">
-                        <Card>
-                            <CardBody>
-                                <CardSubtitle>Gravity Retaining Wall</CardSubtitle>                                
-                                <CardText>Coulomb's Method</CardText>
-                                <NavLink className="btn btn-sm btn-primary" href="/gravity_wall_column">Go To Details</NavLink>                                
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="6">
-                        <Card>
-                            <CardBody>
-                                <CardSubtitle>Gravity Retaining Wall</CardSubtitle>                                
-                                <CardText>Rankine's Method</CardText>
-                                <NavLink className="btn btn-sm btn-primary" href="/gravity_wall_rankine">Go To Section</NavLink>                                                                
-                            </CardBody>
-                        </Card>
-                    </Col>                    
-                </Row>
-                <br/><br/>
-                <Row>
-                    <Col md="3">
                         <Card>
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
                                 <CardText>With a Horizontal Backfill Surface, and Water Table is Below the Base of the Wall</CardText>
                                 <NavLink className="btn btn-sm btn-primary" href="/cantilever_down">Go To Section</NavLink>                                                                
                             </CardBody>
-                        </Card>
+                        </Card><br/>
                     </Col>
-                    <Col md="3">
+                    <Col md="6">
                         <Card>
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
@@ -51,16 +30,19 @@ class Dashboard extends React.Component{
                             </CardBody>
                         </Card>
                     </Col>
-                    <Col md="3">
+                </Row>
+                <br/>
+                <Row>
+                    <Col md="6">
                         <Card>
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
                                 <CardText>With a Horizontal Backfill Surface, With the Water Table at the Surface</CardText>
                                 <NavLink className="btn btn-sm btn-primary" href="/cantilever_up">Go To Section</NavLink>                                                                      
                             </CardBody>
-                        </Card>
+                        </Card><br/>
                     </Col>
-                    <Col md="3">
+                    <Col md="6">
                         <Card>
                             <CardBody>
                                 <CardSubtitle>Cantilever Retaining Wall</CardSubtitle>                                
@@ -75,4 +57,4 @@ class Dashboard extends React.Component{
     }
 }
 
-export default Dashboard;
+export default CantileverDashboard;
