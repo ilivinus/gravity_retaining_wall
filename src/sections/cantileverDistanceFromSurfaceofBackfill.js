@@ -1,5 +1,4 @@
 let constants = {
-    rc : 23.5,
     rw : 9.81,
     factorConst : 1.5
 };
@@ -9,7 +8,7 @@ Number.prototype.toDec = function(num){
 
 exports.setConstantTerms =  function setConstantTerms(rc,r,factorConst){
     constants.factorConst = factorConst;
-    constants.rc = rc;
+    
     constants.r = r;
 }
 

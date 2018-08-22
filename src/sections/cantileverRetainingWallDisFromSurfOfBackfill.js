@@ -68,92 +68,96 @@ CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, 
 }
 
 CantileverRetainingWall.prototype.Ka = function(){
-    return ((1 - this.Mathh._sin(this.phi1)) / (1 + this.Mathh._sin(this.phi1))).toDec(3);
+    return ((1 - this.Mathh._sin(this.phi1)) / (1 + this.Mathh._sin(this.phi1))).toDec(2);
 }
 ///If there is water then  isSat is true else pass isSat = false and givenData r must be passed
 //This is when water table is below the surface of the wall
 CantileverRetainingWall.prototype.Ra = function(z = 0,isSat = true){
     if(isSat){
         let r1 = this.rsat - constants.rw;
-        return ((this.q * this.Ka()) + (r1 * this.Ka() * z) + (constants.rw * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(3);            
+        return ((this.q * this.Ka()) + (r1 * this.Ka() * z) + (constants.rw * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(2);            
     }
-    return ((this.q * this.Ka()) + (this.r * this.Ka() * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(3);
+    return ((this.q * this.Ka()) + (this.r * this.Ka() * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(2);
 }
 
 CantileverRetainingWall.prototype.w1 = function(){
-    return (this.a * (this.H - this.c) * this.rc).toDec(3);
+    return (this.a * (this.H - this.c) * this.rc).toDec(2);
 }
 CantileverRetainingWall.prototype.w2 = function(){
-    return (this.c * this.B * this.rc).toDec(3);
+    return (this.c * this.B * this.rc).toDec(2);
 }
-CantileverRetainingWall.prototype.w3 = function(){
-    return (this.e * this.rsat * ( this.H - this.c)).toDec(3);
+CantileverRetainingWall.prototype.w3 = function(isSat = true){
+    if(isSat){
+    return (this.e * this.rsat * ( this.H - this.c)).toDec(2);
+    }else{
+        return (this.e * this.r * ( this.H - this.c)).toDec(2);
+    }
 }
 CantileverRetainingWall.prototype.w4 = function(){
-    return (this.q * this.e).toDec(3);
+    return (this.q * this.e).toDec(2);
 }
 CantileverRetainingWall.prototype.sumRv = function(P = 0){
-    return (this.w1() + this.w2() + this.w3() + this.w4() + P).toDec(3);
+    return (this.w1() + this.w2() + this.w3() + this.w4() + P).toDec(2);
 }
 //Horizontal forces
-CantileverRetainingWall.prototype.Pa1 = function(){
-    return (this.H * this.Ra()).toDec(3);
+CantileverRetainingWall.prototype.Pa1 = function(isSat =true){
+    return (this.H * this.Ra(0,isSat)).toDec(2);
 }
-CantileverRetainingWall.prototype.Pa2 = function(a = 0,b = 5){
-    return (0.5 * this.H * ( this.Ra(b) - this.Ra(a))).toDec(3);
+CantileverRetainingWall.prototype.Pa2 = function(a = 0,b = 5,isSat = true){
+    return (0.5 * this.H * ( this.Ra(b,isSat) - this.Ra(a,isSat))).toDec(2);
 }
-CantileverRetainingWall.prototype.sumRh = function(a = 0, b = 5){
-    return (this.Pa1(a) + this.Pa2(a, b)).toDec(3);
+CantileverRetainingWall.prototype.sumRh = function(a = 0, b = 5,isSat=true){
+    return (this.Pa1(a,isSat) + this.Pa2(a, b,isSat)).toDec(2);
 }
 
 //Arm(M)
 CantileverRetainingWall.prototype.X1 = function(){
-    return ((this.a / 2) + this.e).toDec(3);
+    return ((this.a / 2) + this.e).toDec(2);
 }
 CantileverRetainingWall.prototype.X2 = function(){
-    return (this.B / 2).toDec(3);
+    return (this.B / 2).toDec(2);
 }
 CantileverRetainingWall.prototype.X3 = function(){
-    return (this.e / 2).toDec(3);
+    return (this.e / 2).toDec(2);
 }
 CantileverRetainingWall.prototype.X4 = function(){
-    return (this.e / 2).toDec(3);
+    return (this.e / 2).toDec(2);
 }
 CantileverRetainingWall.prototype.Xa1 = function(){
-    return (this.H / 2).toDec(3);
+    return (this.H / 2).toDec(2);
 }
 CantileverRetainingWall.prototype.Xa2 = function(){
-    return (this.H / 3).toDec(3);
+    return (this.H / 3).toDec(2);
 }
 
 //Moments about point A
 CantileverRetainingWall.prototype.M1 = function(){
-    return (this.w1() * this.X1()).toDec(3);
+    return (this.w1() * this.X1()).toDec(2);
 }
 CantileverRetainingWall.prototype.M2 = function(){
-    return (this.w2() * this.X2()).toDec(3);
+    return (this.w2() * this.X2()).toDec(2);
 }
 CantileverRetainingWall.prototype.M3 = function(){
-    return (this.w3() * this.X3()).toDec(3);
+    return (this.w3() * this.X3()).toDec(2);
 }
 CantileverRetainingWall.prototype.M4 = function(){
-    return (this.w4() * this.X4()).toDec(3);
+    return (this.w4() * this.X4()).toDec(2);
 }
 CantileverRetainingWall.prototype.Ma1 = function(){
-    return (this.Pa1() * this.Xa1()).toDec(3);
+    return (this.Pa1() * this.Xa1()).toDec(2);
 }
 CantileverRetainingWall.prototype.Ma2 = function(){
-    return (this.Pa2() * this.Xa2()).toDec(3);
+    return (this.Pa2() * this.Xa2()).toDec(2);
 }
 CantileverRetainingWall.prototype.SumM = function(){
-    return (this.M1() + this.M2() + this.M3() + this.M4() + this.Ma1() + this.Ma2()).toDec(3);
+    return (this.M1() + this.M2() + this.M3() + this.M4() + this.Ma1() + this.Ma2()).toDec(2);
 }
 
 CantileverRetainingWall.prototype.leverArm = function(){
-    return (this.SumM() / this.sumRv()).toDec(3);
+    return (this.SumM() / this.sumRv()).toDec(2);
 }
 CantileverRetainingWall.prototype.eccentricity =function(){
-    return (this.leverArm() - (this.B / 2)).toDec(3);
+    return (this.leverArm() - (this.B / 2)).toDec(2);
 }
 CantileverRetainingWall.prototype.IsDesignEfficient = function(efficient){
     return (efficient() < (this.B / 6));
@@ -162,10 +166,10 @@ CantileverRetainingWall.prototype.IsDesignEfficient = function(efficient){
 //Base pressure
 
 CantileverRetainingWall.prototype.Pmax = function(){
-    return ((this.sumRv() / this.B) * (1 + ((6 * this.eccentricity()) / this.B))).toDec(3);
+    return ((this.sumRv() / this.B) * (1 + ((6 * this.eccentricity()) / this.B))).toDec(2);
 }
 CantileverRetainingWall.prototype.Pmin = function(){
-    return ((this.sumRv() / this.B) * (1 - ((6 * this.eccentricity()) / this.B))).toDec(3);
+    return ((this.sumRv() / this.B) * (1 - ((6 * this.eccentricity()) / this.B))).toDec(2);
 }
 
 CantileverRetainingWall.prototype.IPmaxOk = function(){
@@ -173,13 +177,14 @@ CantileverRetainingWall.prototype.IPmaxOk = function(){
 }
 
 CantileverRetainingWall.prototype.FactorOfSafety = function(){
-    return ((this.sumRv() * this.Mathh._tan(this.phiB)) / this.sumRh()).toDec(3);
+    return ((this.sumRv() * this.Mathh._tan(this.phiB)) / this.sumRh()).toDec(2);
 }
 CantileverRetainingWall.prototype.IsDesignSafe = function(){
     return this.FactorOfSafety() > 1.5;
 }
 
 exports.CantileverRetainingWall = CantileverRetainingWall;
+//at surface
 // let mm = new CantileverRetainingWall({ a: 0.30, b: 0.30, c : 0.30, c1 : 0, d : 0.8, e : 2.9, H : 5});
 // mm.givenData({q_ultimate : 560, q : 20, rc : 23.5, rsat : 20, phi1 : 32, phiB : 25, F : 2,r : 17});
 // console.log(mm.Ka());
