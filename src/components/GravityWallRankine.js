@@ -76,7 +76,7 @@ class GravityWallRankine extends Component{
         </InputGroup>
     </div>);
         let mobilizedOutput = isNaN(this.state.Hp) ? "" : (         
-                <Table>
+                <Table responsive>
                     <h5>Mobilising Passive Pressure in Front of the wall</h5>
                     <tbody>                        
                         <tr>
@@ -113,7 +113,7 @@ class GravityWallRankine extends Component{
                 </Table>
         );
 
-        let output = (<Table striped>
+        let output = (<Table responsive striped>
             <tbody>
                 <tr>
             <td>P<sub>a</sub></td>

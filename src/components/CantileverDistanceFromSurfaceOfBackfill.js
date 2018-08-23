@@ -61,7 +61,7 @@ class CantileverWallUpSurface extends Component{
     }
 
     render(){
-      let output =   (<Table striped>
+      let output =   (<Table responsive striped>
             <tbody>
                 <tr>
                     <td>P<sub>a</sub></td>
