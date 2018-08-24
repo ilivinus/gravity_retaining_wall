@@ -62,9 +62,6 @@ class GravityWallRankine extends Component{
         wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1, rho : Rho,phi : Phi, F : F});                     
         console.log(this.state);        
         this.setState({wall_obj : wall});
-        if(GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj)){
-            console.log(this.state.wall_obj.Pa());
-        }
     }
 
     render(){

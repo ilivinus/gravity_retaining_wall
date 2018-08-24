@@ -53,12 +53,8 @@ class CantileverWithRankineAnalysis extends Component{
     solveGravityWall(){
         const {a, b, c, d , e ,g, q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha } = this.state;
         let wall = new CantileverRankineAnalysis({a,b,c,d,e,g});
-        wall.givenData({q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha });        
-        
-        this.setState({wall_obj : wall});
-        if(CantileverRankineAnalysis.prototype.isPrototypeOf(this.state.wall_obj)){
-            console.log(this.state.wall_obj.activePressure());
-        }
+        wall.givenData({q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha });                
+        this.setState({wall_obj : wall});       
     }
 
     render(){

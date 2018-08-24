@@ -54,10 +54,7 @@ class CantileverWallUpSurface extends Component{
         wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : rsat, phi1 : phi1, phiB : phiB, F : F, r : r, h1 : h1, Po : Po});
         console.log(this.state);
         
-        this.setState({wall_obj : wall});
-        if(CantileverDistanceFromSurface.prototype.isPrototypeOf(this.state.wall_obj)){
-            console.log(this.state.wall_obj.Ka());
-        }
+        this.setState({wall_obj : wall});        
     }
 
     render(){

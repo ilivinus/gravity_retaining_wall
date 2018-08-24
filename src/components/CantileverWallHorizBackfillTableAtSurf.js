@@ -60,9 +60,6 @@ class CantileverWall extends Component{
         console.log(this.state);
         
         this.setState({wall_obj : wall});
-        if(CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj)){
-            console.log(this.state.wall_obj.Ka());
-        }
     }
 
     render(){
