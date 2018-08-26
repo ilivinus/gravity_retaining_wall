@@ -15,7 +15,7 @@ class GravityWallColumn extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, Hp: 'l',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: 'l',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
          this.toggle = this.toggle.bind(this);
@@ -72,7 +72,10 @@ class GravityWallColumn extends Component{
             <Input  value={this.state["Hp"]} onChange={this.handleChange.bind(this,"Hp")} />
         </InputGroup>
     </div>);
-        let mobilizedOutput = Number(this.state.Hp)  <= 0 ? "" : (         
+        let mobilizedOutput = "";
+        console.log(hp);
+        if(!isNaN(hp)){
+            mobilizedOutput =  (         
                 <Table responsive>
                     <h5>Mobilising Passive Pressure in Front of the wall</h5>
                     <tbody>                        
@@ -109,6 +112,7 @@ class GravityWallColumn extends Component{
                     </tbody>
                 </Table>
         );
+    }
         let output = (<Table responsive striped>
         <tbody>
             <tr>
@@ -338,15 +342,21 @@ class GravityWallColumn extends Component{
                                     <div className="col-md-1"></div>
                                     <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
                                     <div className="col-md-1"></div>
-                                    <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal")} >Preview</Button>
+                                    <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
                             </div>
                         </div>
                     </div>
                     <br/>
-                    <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')}>
+                    <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
+                        <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
+                        <ModalBody>
+                            <img src={ require("../images/gravity_wall_column_preview")} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                            Diagram of a Cantilever should be ModalHeader
+                            <img src={ require("../images/gravity_wall_column_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>

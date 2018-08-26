@@ -1,6 +1,4 @@
 let constants = {
-    rc : 23.5,
-    rw : 10.0,
     factorConst : 1.5
 };
 
@@ -10,8 +8,6 @@ Number.prototype.toDec = function(num){
 
 exports.setConstantTerms =  function setConstantTerms(rc,rw,factorConst){
     constants.factorConst = factorConst;
-    constants.rc = rc;
-    constants.rw = rw;
 }
 
 /**
@@ -48,7 +44,7 @@ function CantileverRetainingWall(opt){
     }
 }
 ///Pass parameter r when water table is below the surface of the wall
-CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, phi1, phiB, F,r}){
+CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, phi1, phiB, F,r,rw}){
     if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate');
     if(!q || !q < 0) throw new Error('Invalid entry for q');
     if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1');    
@@ -60,6 +56,7 @@ CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, 
     this.rsat = Number(rsat);
     this.phi1 = Number(phi1);
     this.phiB = Number(phiB);
+    this.rw = rw;
     //this.phi = Number(phi);
     this.F = Number(F);
     this.q_allow = Number(this.q_ultimate/this.F);
@@ -74,8 +71,8 @@ CantileverRetainingWall.prototype.Ka = function(){
 //This is when water table is below the surface of the wall
 CantileverRetainingWall.prototype.Ra = function(z = 0,isSat = true){
     if(isSat){
-        let r1 = this.rsat - constants.rw;
-        return ((this.q * this.Ka()) + (r1 * this.Ka() * z) + (constants.rw * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(2);            
+        let r1 = this.rsat - this.rw;
+        return ((this.q * this.Ka()) + (r1 * this.Ka() * z) + (this.rw * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(2);            
     }
     return ((this.q * this.Ka()) + (this.r * this.Ka() * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(2);
 }

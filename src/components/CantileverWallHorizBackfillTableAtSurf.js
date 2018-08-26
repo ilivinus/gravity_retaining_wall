@@ -9,18 +9,35 @@ class CantileverWall extends Component{
         super(props);
 
         this.handleChange = this.handleChange.bind(this);                
-        this.state = {  isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            collapse5: false, collapse6: false,popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false,a: '', b: '', c : '', 
-            c1 : '', d : '', e : '', H : '', q_ultimate : '', q : '', rc : '', rsat : '', phi1 : '', phiB : '', F : '', r : '',wall_obj : {}};        
+        this.state = {  isValid: true, collapse1: false, collapse2 : false,
+             collapse3 : false,collapse4 : false,
+             collapse5: false, collapse6: false,popoverOpen : false,
+             popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false,
+             a: '', b: '', c : '', 
+             c1 : '', d : '', e : '', H : '', q_ultimate : '', q : '', rc : '', rsat : '',
+             phi1 : '', phiB : '', F : '', r : '',wall_obj : {}};        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.togglesClose = this.togglesClose.bind(this);
     }
-    
-    toggle(who){
+    togglesClose(){
+        for(let i = 1; i < 7; i++){
+            let key = "collapse" + i;
+            this.setState({ collapse : false });    
+            this.setState({ [key] : false });
+        }
+        for(let j = 1; j < 4; j++){
+            let key = "popoverOpen" + j;
+            this.setState({ popoverOpen : false });
+            this.setState({ [key]  : false });
+        }
+    }
+    toggle(who){        
         this.setState({ [who] :!this.state[who]});
     }
-    handleToggle(who){        
+    handleToggle(who){       
+        this.togglesClose(); 
         this.setState({ [who] : !this.state[who]});
     }
 
@@ -56,7 +73,7 @@ class CantileverWall extends Component{
         const {a, b, c, c1, d , e , H , q_ultimate, q, rc, rsat, phi1, phiB,F,r} = this.state;
         //CantileverRetainingWall({ a: 0.30, b: 0.30, c : 0.30, c1 : 0, d : 0.8, e : 2.9, H : 5})
         let wall = new CantileverRetainingWall({a,b,c,c1,d,e,H});
-        wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : rsat, phi1 : phi1, phiB : phiB, F : F, r : r });
+        wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : rsat, phi1 : phi1, phiB : phiB, F : F,  r : r, rw : r });
         console.log(this.state);
         
         this.setState({wall_obj : wall});
@@ -67,7 +84,7 @@ class CantileverWall extends Component{
         let output =   (<Table responsive striped>
             <tbody>
                 <tr>
-                    <td>P<sub>a</sub></td>
+                    <td>K<sub>a</sub></td>
                     <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(): 'N/A'}</td>
                     <td><Button id="collapse1" onClick={()=>this.handleToggle("collapse1")}>&sigma;</Button></td>                
                     <td>
@@ -169,7 +186,7 @@ class CantileverWall extends Component{
         return (
                 <div>                   
                     <Jumbotron>
-                    <div className="row">
+                    <div className="row" >
                     <h2>Cantilever Retaining Wall, With a Horizontal Backfill Surface, with the Water Table at the Surface</h2>
                     { this.state.isValid ? "" : <Alert color="danger">All fields must be filled</Alert>}
                         <div className="col-md-12">               
@@ -196,7 +213,7 @@ class CantileverWall extends Component{
                                 
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">c1</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">C'</InputGroupAddon>
                                         <Input  value={this.state["c1"]} onChange={this.handleChange.bind(this,"c1")} />
                                     </InputGroup><br/>
                                 </div>
@@ -218,7 +235,7 @@ class CantileverWall extends Component{
                                 <div className="col-md-2">
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">H</InputGroupAddon>
-                                        <Input  value={this.state["H"]} onChange={this.handleChange.bind(this,"H")} />
+                                        <Input  value={this.state["H"]} onChange={this.handleChange.bind(this,"H")}  />
                                     </InputGroup>
                                 </div>
                             </div>
@@ -231,7 +248,7 @@ class CantileverWall extends Component{
                             <div className="row">
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">Q ultimate</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">Qu</InputGroupAddon>
                                         <Input  value={this.state["q_ultimate"]} onChange={this.handleChange.bind(this,"q_ultimate")} />
                                     </InputGroup><br/>
                                 </div>
@@ -243,25 +260,25 @@ class CantileverWall extends Component{
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">rc</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">&gamma;c</InputGroupAddon>
                                         <Input  value={this.state["rc"]} onChange={this.handleChange.bind(this,"rc")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">rsat</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">&gamma;sat</InputGroupAddon>
                                         <Input  value={this.state["rsat"]} onChange={this.handleChange.bind(this,"rsat")} />
                                     </InputGroup><br/>
                                 </div>                                
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">phi1</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">&Phi;'</InputGroupAddon>
                                         <Input  value={this.state["phi1"]} onChange={this.handleChange.bind(this,"phi1")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">phiB</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">&Phi;b</InputGroupAddon>
                                         <Input  value={this.state["phiB"]} onChange={this.handleChange.bind(this,"phiB")} />
                                     </InputGroup><br/>
                                 </div>
@@ -273,7 +290,7 @@ class CantileverWall extends Component{
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">r</InputGroupAddon>
+                                        <InputGroupAddon addonType="prepend">&gamma;w</InputGroupAddon>
                                         <Input  value={this.state["r"]} onChange={this.handleChange.bind(this,"r")} />
                                     </InputGroup>
                                 </div>
@@ -281,19 +298,25 @@ class CantileverWall extends Component{
                             
                             <br/>
                             <div className="row">
-                            <Button className="col-md-3" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button>
+                            <Button className="col-md-3" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button><br/>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
+                                <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button><br/>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal")} >Preview</Button>
+                                <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
                             </div>
                         </div>
                     </div>
                     <br/>
-                    <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')}>
+                    <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
+                        <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
+                        <ModalBody>
+                        <img src={ require("../images/cantilever_at_surface_preview")} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                            Diagram of a Cantilever should be ModalHeader
+                        <img src={ require("../images/cantilever_at_surface_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>

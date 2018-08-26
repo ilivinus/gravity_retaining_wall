@@ -10,7 +10,7 @@ class CantileverWall extends Component{
 
         this.handleChange = this.handleChange.bind(this);                
         this.state = {  isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            collapse5: false, collapse6: false,popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false,a: '', b: '', c : '', 
+            collapse5: false, collapse6: false,popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 :false,a: '', b: '', c : '', 
             c1 : '', d : '', e : '', H : '', q_ultimate : '', q : '', rc : '', phi1 : '', phiB : '', F : '', r : '',wall_obj : {}};        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
@@ -279,15 +279,21 @@ class CantileverWall extends Component{
                                 <div className="col-md-1"></div>
                                 <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal")} >Preview</Button>
+                                <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
                             </div>
                         </div>
                     </div>
                     <br/>
-                    <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')}>
+                    <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
+                        <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
+                        <ModalBody>
+                        <img src={ require("../images/cantilever_below_wall_preview")} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                            Diagram of a Cantilever should be ModalHeader
+                        <img src={ require("../images/cantilever_below_wall_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>
