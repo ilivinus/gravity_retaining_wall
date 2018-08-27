@@ -123,7 +123,15 @@ class GravityWallColumn extends Component{
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmOfRv2(hp): 'N/A'}</td>
                             <td>Eccentricity<sub>2</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.eccentricity2(hp): 'N/A'}</td>                    
-                        </tr>      
+                            <td>P<sub>max</sub></td>
+                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.maxPressure(this.state.wall_obj.sumOfRv2(hp)) : 'N/A' }</td>
+                        </tr>   
+                        <tr>
+                            <td>P<sub>min</sub></td>
+                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.minPressure(this.state.wall_obj.sumOfRv2(hp)) : 'N/A' }</td>
+                            <td>Factor of safety</td>
+                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(this.state.wall_obj.sumOfRv2(hp),this.state.wall_obj.Ph(hp)) : 'N/A' }</td>
+                        </tr>   
                     </tbody>
                 </Table>
         );

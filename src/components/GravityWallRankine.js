@@ -147,15 +147,14 @@ class GravityWallRankine extends Component{
                                     <ListGroupItem>W<sub>5</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w5(): 'N/A'}</ListGroupItem>
                                     <ListGroupItem>W<sub>6</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w6(): 'N/A'}</ListGroupItem>
                                     <ListGroupItem>W<sub>7</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w7(): 'N/A'}</ListGroupItem>                                
+                                    <ListGroupItem>P<sub>v</sub> : {  GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pv(): 'N/A'}</ListGroupItem>                                
+                                    <ListGroupItem>&sum;R<sub>v</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationRv(): 'N/A' }</ListGroupItem>
+                                    
                                 </ListGroup>
                             </CardBody>
                         </PopoverBody></Popover></td>
                 </tr>
                 <tr>
-                    <td>P<sub>v</sub></td>
-                    <td>{  GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pv(): 'N/A'}</td>
-                    <td>P<sub>h</sub></td>
-                    <td>{  GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ph(): 'N/A'}</td>
                     <td><Button id="collapse2" onClick={()=>this.handleToggle("collapse2")}>Horizontal Forces</Button></td>
                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse2} target="collapse2" toggle={()=>this.handleToggle('collpase2')}>             
@@ -168,8 +167,7 @@ class GravityWallRankine extends Component{
                                 </ListGroup>
                             </CardBody>
                         </PopoverBody></Popover></td>
-                </tr>
-                <tr>
+                
                     <td><Button id="collapse3" onClick={()=>this.handleToggle("collapse3")}>Lever arm about the toe</Button></td>
                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse3} target="collapse3" toggle={()=>this.handleToggle('collpase3')}>                             
@@ -183,17 +181,14 @@ class GravityWallRankine extends Component{
                                     <ListGroupItem>X<sub>5</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX5(): 'N/A'}</ListGroupItem>                                
                                     <ListGroupItem>X<sub>6</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX6(): 'N/A'}</ListGroupItem>                                                                
                                     <ListGroupItem>X<sub>7</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX7(): 'N/A'}</ListGroupItem>                                                                
+                                    <ListGroupItem>X<sub>v</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXv(): 'N/A'}</ListGroupItem>                                                                
+                                    <ListGroupItem>X<sub>h</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXh(): 'N/A' }</ListGroupItem>                                                                
                                 </ListGroup>
                             </CardBody>
                         </PopoverBody>
-                        </Popover></td>
-                    <td>X<sub>v</sub></td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXv(): 'N/A'}</td>
-                    <td>X<sub>h</sub></td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXh(): 'N/A' }</td>
-                </tr>
-                <tr>
-                    <td><Button id="collapse4" onClick={()=>this.handleToggle("collapse4")}>Clockwise moment about the toe</Button></td>                
+                        </Popover></td>                    
+                
+                    <td><Button id="collapse4" onClick={()=>this.handleToggle("collapse4")}>Moment about the toe</Button></td>                
                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse4} target="collapse4" toggle={()=>this.handleToggle('collpase4')}>             
                     
@@ -208,23 +203,14 @@ class GravityWallRankine extends Component{
                                     <ListGroupItem>M<sub>5</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM5(): 'N/A'}</ListGroupItem>                                
                                     <ListGroupItem>M<sub>6</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM6(): 'N/A'}</ListGroupItem>                                
                                     <ListGroupItem>M<sub>7</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM7(): 'N/A'}</ListGroupItem>                                                                
+                                    <ListGroupItem>M<sub>v</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMv(): 'N/A'}</ListGroupItem>                                                                
+                                    <ListGroupItem>M<sub>h</sub> : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMh(): 'N/A'}</ListGroupItem>                                                                
+                                    <ListGroupItem>&sum;M : { GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationM(): 'N/A'}</ListGroupItem>
                                 </ListGroup>
                             </CardBody>
                         </Card>
                         </PopoverBody>
                         </Popover></td>
-                        <td>M<sub>v</sub></td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMv(): 'N/A'}</td>
-                    <td>Anti-clockwise Moment about the toe(M<sub>h</sub>)</td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMh(): 'N/A' }</td>                
-                </tr>
-                <tr>
-                    <td>&sum;M</td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationM(): 'N/A' }</td>                
-                    <td>&sum;R<sub>v</sub></td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationRv(): 'N/A' }</td>
-                    <td>&sum;R<sub>h</sub></td>
-                    <td>{ GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationRh(): 'N/A' }</td>
                 </tr>
                 <tr>
                     <td>Lever arm of &sum;R<sub>v</sub></td>
