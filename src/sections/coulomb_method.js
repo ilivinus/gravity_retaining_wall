@@ -263,7 +263,7 @@ GravityRetainingWall.prototype.w5 = function(Hp){
  */
 GravityRetainingWall.prototype.Pp = function(Hp){
     if(isNaN(Hp)) throw new Error("Invalid arugment. Not a number");
-    return ((0.5 * constants.r * Math.pow(Hp,2)) * (((1 + this.Mathh._sin(this.phi))/(1 - this.Mathh._sin(this.phi))))).toDec(2);
+    return ((0.5 * constants.r * Math.pow(Hp,2)) * (((1 + this.Mathh._sin(this.phi))/(1 - this.Mathh._sin(this.phi))).toDec(2))).toDec(2);
 }
 
 GravityRetainingWall.prototype.leverArmX5 = function(){
