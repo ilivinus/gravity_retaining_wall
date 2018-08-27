@@ -14,10 +14,12 @@ class GravityWallRankine extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: 'l',a:'',b:'',c:'',d:'',e:'',f:'',g:'',H:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: 'l',a:'',b:'',
+            c:'',d:'',e:'',f:'',g:'',H:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',F:'',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.togglesClose = this.togglesClose.bind(this);
     }
 
     handleSubmit(){
@@ -42,10 +44,25 @@ class GravityWallRankine extends Component{
                 this.solveGravityWall(); 
                 this.toggle('modal2');
             }});
-    
+     
         //this.solveGravityWall();
     }
-    handleToggle(who){        
+    togglesClose(){
+        console.log("Entered toggle close");
+        for(let i = 1; i < 5; i++){
+            let key = "collapse" + i;
+           // this.setState({ collapse : false });    
+            this.setState({ [key] : false });
+        }
+        for(let j = 2; j < 4; j++){
+            let key = "popoverOpen" + j;
+            this.setState({ popoverOpen : false });
+            this.setState({ [key]  : false });
+        }
+    }
+
+    handleToggle(who){     
+        this.togglesClose();  
         this.setState({ [who] : !this.state[who]});
     }
     toggle(who){
@@ -53,14 +70,14 @@ class GravityWallRankine extends Component{
     }
     handleChange(who,change){
         //[who],change.target.value
+        this.togglesClose();
         this.setState({[who] : change.target.value});        
     }
 
     solveGravityWall(){
-        const {a, b, c, d , e , f, g, H ,q_ultimate,Beta,Phi,Phi1,Rho,F} = this.state;
+        const {a, b, c, d , e , f, g, H ,q_ultimate,Beta,Phi,Phi1,F} = this.state;
         let wall = new GravityRetainingWallRankine({a,b,c,d,e,f,g,H});
-        wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1, rho : Rho,phi : Phi, F : F});                     
-        console.log(this.state);        
+        wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1,phi : Phi, F : F});           
         this.setState({wall_obj : wall});
     }
 
@@ -290,8 +307,8 @@ class GravityWallRankine extends Component{
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">H</InputGroupAddon>
-                                        <Input  value={this.state["h"]} onChange={this.handleChange.bind(this,"H")} />
+                                        <InputGroupAddon addonType="prepend">Ha</InputGroupAddon>
+                                        <Input  value={this.state["H"]} onChange={this.handleChange.bind(this,"H")} />
                                     </InputGroup>
                                 </div>
                             </div>
@@ -318,12 +335,6 @@ class GravityWallRankine extends Component{
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">&Phi;'</InputGroupAddon>
                                         <Input  value={this.state["Phi1"]} onChange={this.handleChange.bind(this,"Phi1")} />
-                                    </InputGroup><br/>
-                                </div>
-                                <div className="col-md-2">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">&delta;</InputGroupAddon>
-                                        <Input  value={this.state["Rho"]} onChange={this.handleChange.bind(this,"Rho")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">

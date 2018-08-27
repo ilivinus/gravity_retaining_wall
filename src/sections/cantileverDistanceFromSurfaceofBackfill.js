@@ -52,9 +52,9 @@ CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, 
     if(!r || r < 0) throw new Error('Invalid entry for r');
     if(!h1 || h1 < 0) throw new Error('Invalid entry for h1');
     if(!Po || Po < 0) throw new Error('Invalid entry for Po');
-    this.Po = Po;
+    this.Po = Number(Po);
     this.q_ultimate = q_ultimate;
-    this.q = q;
+    this.q = Number(q);
     this.rc = Number(rc);
     this.rsat = Number(rsat);
     this.phi1 = Number(phi1);
@@ -92,7 +92,7 @@ CantileverRetainingWall.prototype.w4 = function(){
     return Number(this.e * this.h1 * this.r).toDec(3);
 }
 //P is given
-CantileverRetainingWall.prototype.sumRv = function(){
+CantileverRetainingWall.prototype.sumRv = function(){    
     return Number(this.w1() + this.w2() + this.w3() + this.w4() + this.Po).toDec(3);
 }
 //Horizontal forces

@@ -15,12 +15,27 @@ class CantileverWall extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.togglesClose = this.togglesClose.bind(this);
     }
     
+    
+    togglesClose(){
+        for(let i = 1; i < 7; i++){
+            let key = "collapse" + i;
+            this.setState({ collapse : false });    
+            this.setState({ [key] : false });
+        }
+        for(let j = 1; j < 4; j++){
+            let key = "popoverOpen" + j;
+            this.setState({ popoverOpen : false });
+            this.setState({ [key]  : false });
+        }
+    }
     toggle(who){
         this.setState({ [who] :!this.state[who]});
     }
-    handleToggle(who){        
+    handleToggle(who){  
+        this.togglesClose();      
         this.setState({ [who] : !this.state[who]});
     }
 

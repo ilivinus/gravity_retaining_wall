@@ -154,7 +154,7 @@ GravityRetainingWall.prototype.leverArmX4 = function(){
 }
 
 GravityRetainingWall.prototype.leverArmXv = function(){
-    return (((this.wall_height + this.f) / this.Mathh._tan(this.alpha)) + this.heel_length).toDec(2);
+    return ((((this.wall_height/3) - this.f) / this.Mathh._tan(this.alpha())) + this.heel_length).toDec(2);
 }
 
 GravityRetainingWall.prototype.leverArmXh = function(){

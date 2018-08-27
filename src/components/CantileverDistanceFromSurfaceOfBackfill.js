@@ -7,16 +7,35 @@ class CantileverWallUpSurface extends Component{
     constructor(props){
         super(props);
         this.handleChange = this.handleChange.bind(this);                
-        this.state = { isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            collapse5: false, collapse6: false,popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false,modal3 :false, a: '', b: '', c : '', c1 : '', d : '', e : '', H : '', q_ultimate : '', q : '', 
-        rc : '', rsat : '', phi1 : '', phiB : '', F : '', r : '',h1 : '',Po : '',wall_obj : {}};        
+        this.state = { isValid: true, collapse1: false, collapse2 : false,
+             collaspe3 : false,collapse4 : false,
+            collapse5: false, collapse6: false,popoverOpen : false, 
+            popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false,
+            modal3 :false, a: '', b: '', c : '', c1 : '', d : '', e : '', H : '', 
+            q_ultimate : '', q : '', rc : '', rsat : '', phi1 : '', 
+            phiB : '', F : '', r : '',h1 : '',Po : '',wall_obj : {}};        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.togglesClose = this.togglesClose.bind(this);
+    }
+    
+    togglesClose(){
+        for(let i = 1; i < 7; i++){
+            let key = "collapse" + i;
+            this.setState({ collapse : false });    
+            this.setState({ [key] : false });
+        }
+        for(let j = 1; j < 4; j++){
+            let key = "popoverOpen" + j;
+            this.setState({ popoverOpen : false });
+            this.setState({ [key]  : false });
+        }
     }
     toggle(who){
         this.setState({ [who] :!this.state[who]});
     }
-    handleToggle(who){        
+    handleToggle(who){     
+        this.togglesClose();   
         this.setState({ [who] : !this.state[who]});
     }
     handleSubmit(){
@@ -61,7 +80,7 @@ class CantileverWallUpSurface extends Component{
       let output =   (<Table responsive striped>
             <tbody>
                 <tr>
-                    <td>P<sub>a</sub></td>
+                    <td>K<sub>a</sub></td>
                     <td>{ CantileverDistanceFromSurface.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(): 'N/A'}</td>
                     <td><Button id="collapse1" onClick={()=>this.handleToggle("collapse1")}>&sigma;</Button></td>                
                     <td>
@@ -167,7 +186,7 @@ class CantileverWallUpSurface extends Component{
                 <div>   
                 <Jumbotron>                
                     <div className="row">
-                    <h2>Cantilever Retaining Wall : On a distance from the Surfacee of the Backfill</h2>
+                    <h2>Cantilever Retaining Wall : On a distance from the Surface of the Backfill</h2>
                     { this.state.isValid ? "" : <Alert color="danger">All fields must be filled</Alert>}
                         <div className="col-md-12">               
                         <br/>

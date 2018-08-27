@@ -45,17 +45,16 @@ function GravityRetainingWall(opt){
     }
 }
 
-GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1,rho, phi, F}){
+GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1, phi, F}){
     if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate');
     if(!beta || beta < 0) throw new Error('Invalid entry for beta');
     if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1');
-    if(!rho || rho < 0) throw new Error('Invalid entry for epsilon');
+    
     if(!phi || phi < 0) throw new Error('Invalid entry for phi');
     if(!F || F < 0) throw new Error('Invalid entry for F');
     this.q_ultimate = Number(q_ultimate);
     this.beta = Number(beta);
     this.phi1 = Number(phi1);
-    this.rho = Number(rho);
     this.phi = Number(phi);
     this.F = F;
     this.q_allow = Number(this.q_ultimate/this.F);

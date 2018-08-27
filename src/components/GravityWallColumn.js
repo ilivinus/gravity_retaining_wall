@@ -15,19 +15,33 @@ class GravityWallColumn extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: 'l',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: '',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
-         this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.togglesClose = this.togglesClose.bind(this);
     }
 
+    
+    togglesClose(){
+        console.log("Entered toggle close");
+        for(let i = 1; i < 5; i++){
+            let key = "collapse" + i;
+           // this.setState({ collapse : false });    
+            this.setState({ [key] : false });
+        }
+        for(let j = 2; j < 4; j++){
+            let key = "popoverOpen" + j;
+            this.setState({ popoverOpen : false });
+            this.setState({ [key]  : false });
+        }
+    }
     handleSubmit(){
         this.setState({isValid : true});
         let keys = Object.keys(this.state);
         function liv(cb){
-            console.log("enter liv");
             for(let v = 0; v < keys.length; v++){
-                if(this.state[keys[v]] === ''){                    
+                if(this.state[keys[v]] === '' && keys[v] !== 'Hp'){                    
                    return  cb({ isValid : false});                                    
                 }
             }
@@ -36,8 +50,7 @@ class GravityWallColumn extends Component{
         liv.call(this,obj => {
             if(obj && !obj.isValid){ 
                 this.setState({isValid : false })
-            }else{ 
-                
+            }else{                 
                 this.solveGravityWall(); 
                 this.toggle('modal2');
             }});
@@ -48,10 +61,12 @@ class GravityWallColumn extends Component{
     toggle(who){
         this.setState({ [who] :!this.state[who]});
     }
-    handleToggle(who){        
+    handleToggle(who){    
+        this.togglesClose();   
         this.setState({ [who] : !this.state[who]});
     }
     handleChange(who,change){
+
         //[who],change.target.value
         this.setState({[who] : change.target.value});        
     }
@@ -73,8 +88,8 @@ class GravityWallColumn extends Component{
         </InputGroup>
     </div>);
         let mobilizedOutput = "";
-        console.log(hp);
-        if(!isNaN(hp)){
+        console.log("HEllo :"+ hp);
+        if(hp !== ""){
             mobilizedOutput =  (         
                 <Table responsive>
                     <h5>Mobilising Passive Pressure in Front of the wall</h5>
@@ -130,16 +145,14 @@ class GravityWallColumn extends Component{
                                 <ListGroupItem>W<sub>2</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w2(): 'N/A'}</ListGroupItem>
                                 <ListGroupItem>W<sub>3</sub> : {  GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w3(): 'N/A'}</ListGroupItem>
                                 <ListGroupItem>W<sub>4</sub> : {  GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w4(): 'N/A'}</ListGroupItem>                                
+                                <ListGroupItem>P<sub>v</sub> : {  GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pv(): 'N/A'}</ListGroupItem>                                                                
+                                <ListGroupItem>&sum;R<sub>v</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRv(): 'N/A' }</ListGroupItem>                                
                             </ListGroup>
                         </CardBody>
                     </PopoverBody></Popover></td>
             </tr>
             <tr>
-                <td>P<sub>v</sub></td>
-                <td>{  GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pv(): 'N/A'}</td>
-                <td>P<sub>h</sub></td>
-                <td>{  GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ph(): 'N/A'}</td>
-                <td><Button id="collapse2" onClick={()=>this.handleToggle("collapse2")}>Horizontal Forces</Button></td>
+                 <td><Button id="collapse2" onClick={()=>this.handleToggle("collapse2")}>Horizontal Forces</Button></td>
                 <td>
                 <Popover placement="bottom" isOpen={this.state.collapse2} target="collapse2" toggle={()=>this.handleToggle('collpase2')}>             
                 
@@ -150,9 +163,8 @@ class GravityWallColumn extends Component{
                                 <ListGroupItem>&sum;R<sub>h</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRh(): 'N/A'}</ListGroupItem>                                
                             </ListGroup>
                         </CardBody>
-                    </PopoverBody></Popover></td>
-            </tr>
-            <tr>
+                    </PopoverBody></Popover>
+                </td>           
                 <td><Button id="collapse3" onClick={()=>this.handleToggle("collapse3")}>Lever arm about the toe</Button></td>
                 <td>
                 <Popover placement="bottom" isOpen={this.state.collapse3} target="collapse3" toggle={()=>this.handleToggle('collpase3')}>                             
@@ -163,20 +175,16 @@ class GravityWallColumn extends Component{
                                 <ListGroupItem>X<sub>2</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX2(): 'N/A'}</ListGroupItem>                                
                                 <ListGroupItem>X<sub>3</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX3(): 'N/A'}</ListGroupItem>                                
                                 <ListGroupItem>X<sub>4</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX4(): 'N/A'}</ListGroupItem>                                                                
+                                <ListGroupItem>X<sub>v</sub> : {  GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXv(): 'N/A'}</ListGroupItem>
+                                <ListGroupItem>X<sub>h</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXh(): 'N/A' }</ListGroupItem>
+
                             </ListGroup>
                         </CardBody>
                     </PopoverBody>
-                    </Popover></td>
-                <td>X<sub>v</sub></td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXv(): 'N/A'}</td>
-                <td>X<sub>h</sub></td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXh(): 'N/A' }</td>
-            </tr>
-            <tr>
-                <td><Button id="collapse4" onClick={()=>this.handleToggle("collapse4")}>Clockwise moment about the toe</Button></td>                
+                    </Popover></td>            
+                <td><Button id="collapse4" onClick={()=>this.handleToggle("collapse4")}>Moment about the toe</Button></td>                
                 <td>
                 <Popover placement="bottom" isOpen={this.state.collapse4} target="collapse4" toggle={()=>this.handleToggle('collpase4')}>             
-                
                     <PopoverBody>
                     <Card>
                         <CardBody>
@@ -185,23 +193,14 @@ class GravityWallColumn extends Component{
                                 <ListGroupItem>M<sub>2</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM2(): 'N/A'}</ListGroupItem>                                
                                 <ListGroupItem>M<sub>3</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM3(): 'N/A'}</ListGroupItem>                                
                                 <ListGroupItem>M<sub>4</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM4(): 'N/A'}</ListGroupItem>                                                                
+                                <ListGroupItem>M<sub>v</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMv(): 'N/A'}</ListGroupItem>                                                                
+                                <ListGroupItem>M<sub>h</sub> : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMh(): 'N/A'}</ListGroupItem>                                                                
+                                <ListGroupItem>&sum;M : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfMoment(): 'N/A'}</ListGroupItem>
                             </ListGroup>
                         </CardBody>
                     </Card>
                     </PopoverBody>
-                    </Popover></td>
-                    <td>M<sub>v</sub></td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMv(): 'N/A'}</td>
-                <td>Anti-clockwise Moment about the toe(M<sub>h</sub>)</td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMh(): 'N/A' }</td>                
-            </tr>
-            <tr>
-                <td>&sum;M</td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfMoment(): 'N/A' }</td>                
-                <td>&sum;R<sub>v</sub></td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRv(): 'N/A' }</td>
-                <td>&sum;R<sub>h</sub></td>
-                <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRh(): 'N/A' }</td>
+                    </Popover></td>               
             </tr>
             <tr>
                 <td>Lever arm of &sum;R<sub>v</sub></td>
