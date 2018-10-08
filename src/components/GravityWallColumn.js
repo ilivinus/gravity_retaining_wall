@@ -97,46 +97,53 @@ class GravityWallColumn extends Component{
                         <tr>
                             <td>W<sub>5</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w5(hp): 'N/A'}</td>
+                            <td>K<sub>p</sub></td>
+                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Kp(): 'N/A'}</td>
+
                             <td>P<sub>p</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pp(hp): 'N/A'}</td>
-                            <td>Lever arm X<sub>5</sub></td>
-                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX5(): 'N/A'}</td>
                         </tr>
                         <tr>
+                        <td>X<sub>5</sub></td>
+                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX5(): 'N/A'}</td>
+
                             <td>X<sub>p</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXp(hp): 'N/A'}</td>
                             <td>M<sub>5</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM5(hp): 'N/A'}</td>
-                            <td>M<sub>p</sub></td>
-                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMp(hp): 'N/A'}</td>
                         </tr>
                         <tr>
+                        <td>M<sub>p</sub></td>
+                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMp(hp): 'N/A'}</td>
+
                             <td>&sum;M<sub>2</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfMoment2(hp): 'N/A'}</td>
                             <td>&sum; R<sub>v2</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRv2(hp): 'N/A'}</td>
-                            <td>&sum; R<sub>h2</sub></td>
-                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRh2(hp): 'N/A'}</td>
+                            
                         </tr>
                         <tr>
+                        <td>&sum; R<sub>h2</sub></td>
+                            <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumOfRh2(hp): 'N/A'}</td>
                             <td>Lever arm of R<sub>v2</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmOfRv2(hp): 'N/A'}</td>
                             <td>Eccentricity<sub>2</sub></td>
                             <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.eccentricity2(hp): 'N/A'}</td>                    
-                            <td>P<sub>max</sub></td>
-                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.maxPressure(this.state.wall_obj.sumOfRv2(hp)) : 'N/A' }</td>
+                            
                         </tr>   
                         <tr>
+                        <td>P<sub>max</sub></td>
+                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.maxPressure(this.state.wall_obj.sumOfRv2(hp),this.state.wall_obj.eccentricity2(hp)) : 'N/A' }</td>
                             <td>P<sub>min</sub></td>
-                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.minPressure(this.state.wall_obj.sumOfRv2(hp)) : 'N/A' }</td>
+                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.minPressure(this.state.wall_obj.sumOfRv2(hp),this.state.wall_obj.eccentricity2(hp)) : 'N/A' }</td>
                             <td>Factor of safety</td>
-                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(this.state.wall_obj.sumOfRv2(hp),this.state.wall_obj.Ph(hp)) : 'N/A' }</td>
+                            <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(this.state.wall_obj.sumOfRv2(hp),this.state.wall_obj.Pp(hp),this.state.wall_obj.sumOfRh2(hp)) : 'N/A' }</td>
                         </tr>   
                     </tbody>
                 </Table>
         );
     }
-        let output = (<Table responsive striped>
+ let output = (<Table responsive striped>
         <tbody>
             <tr>
         <td>P<sub>a</sub></td>

@@ -227,14 +227,18 @@ GravityRetainingWall.prototype.isDesignEfficient = function(eccentricityfn){
  */
 GravityRetainingWall.prototype.maxPressure = function(){
     let sumOfRv = arguments.length > 0 ? arguments[0] : this.sumOfRv();
-    return ((sumOfRv / this.base_width) * (1 + ((6 * this.eccentricity()) / this.base_width))).toDec(2);
+    return arguments.length > 1 
+    ? ((sumOfRv / this.base_width) * (1 + ((6 * Number(arguments[1])) / this.base_width))).toDec(2)
+    : ((sumOfRv / this.base_width) * (1 + ((6 * this.eccentricity()) / this.base_width))).toDec(2);
 }
 /**
  * Base Pressure
  */
 GravityRetainingWall.prototype.minPressure = function(){
     let sumOfRv = arguments.length > 0 ? arguments[0] : this.sumOfRv();
-    return ((sumOfRv / this.base_width) * (1 - ((6 * this.eccentricity()) / this.base_width))).toDec(2);
+    return arguments.length > 1 
+    ? ((sumOfRv / this.base_width) * (1 - ((6 * Number(arguments[1])) / this.base_width))).toDec(2)
+    : ((sumOfRv / this.base_width) * (1 - ((6 * this.eccentricity()) / this.base_width))).toDec(2);
 }
 
 /**
@@ -242,7 +246,9 @@ GravityRetainingWall.prototype.minPressure = function(){
  */
 GravityRetainingWall.prototype.factorOfSafety = function(){
     let sumOfRv = arguments.length > 0 ? arguments[0] : this.sumOfRv();
-    return ((sumOfRv * this.Mathh._tan(this.phi) + (typeof(arguments[1]) !=='undefined' ? arguments[1] : 0) )/this.sumOfRh()).toDec(2);
+    let Pp = Number(arguments.length > 1 ? arguments[1] : 0);
+    let sumOfRh = Number(arguments.length > 2 ? arguments[2] : this.sumOfRh());    
+    return ((sumOfRv * this.Mathh._tan(this.phi) + Pp)/sumOfRh).toDec(2);
 }
 GravityRetainingWall.prototype.isFactorSatisfied = function(){
     return this.factorOfSafety() > constants.factorConst;
@@ -258,12 +264,16 @@ GravityRetainingWall.prototype.w5 = function(Hp){
     return this.W5.toDec(2);
 }
 
+GravityRetainingWall.prototype.Kp = function(){
+    return ((1 + this.Mathh._sin(this.phi))/(1 - this.Mathh._sin(this.phi))).toDec(2)
+}
+
 /**
  * Passive pressure
  */
 GravityRetainingWall.prototype.Pp = function(Hp){
     if(isNaN(Hp)) throw new Error("Invalid arugment. Not a number");
-    return ((0.5 * constants.r * Math.pow(Hp,2)) * (((1 + this.Mathh._sin(this.phi))/(1 - this.Mathh._sin(this.phi))).toDec(2))).toDec(2);
+    return ((0.5 * constants.r * Math.pow(Hp,2)) * this.Kp()).toDec(2);
 }
 
 GravityRetainingWall.prototype.leverArmX5 = function(){
