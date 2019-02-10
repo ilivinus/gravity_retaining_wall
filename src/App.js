@@ -10,6 +10,10 @@ import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import GravityDashboard from './components/GravityDashboard';
 import CantileverDashboard from './components/CantileverDashboard';
 import CantileverWithRankineAnalysis from './components/CantileverRetainingWithRankineAnalysis';
+import AnchoredDashboard from './components/AnchoredDashboard';
+import CohesiveSoil from './components/CohesiveSoil';
+import CohesionlessSoil from './components/CohesionlessSoil';
+
 import {
     Collapse,
     Navbar,
@@ -63,6 +67,9 @@ export default class App extends Component{
                             <DropdownItem>
                                 <Link to="/cantilever_dashboard">CANTILEVER RETAINING WALL</Link>
                             </DropdownItem>
+                            <DropdownItem>
+                                <Link to="/anchored_dashboard">ANCHORED SHEETPILE WALL</Link>
+                            </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
                 </Nav>
@@ -76,8 +83,11 @@ export default class App extends Component{
             <Route path="/cantilever_backfill_surf" component={ CantileverDistFromSurfOfBackfill } /> 
             <Route path="/cantilever_rankine" component={CantileverWithRankineAnalysis} />
             <Route path="/about" component={About} />
-            <Route path="/gravity_dashboard" component={GravityDashboard}/>
+            <Route path="/gravity_dashboard" component={GravityDashboard} />
             <Route path="/cantilever_dashboard" component={CantileverDashboard} />
+            <Route path="/cohensionless_soil" component={CohesionlessSoil} />
+            <Route path="/cohesive_soil" component={CohesiveSoil} />
+            <Route path="/anchored_dashboard" component={AnchoredDashboard} />
         </Container>
     </Router>);
     }
