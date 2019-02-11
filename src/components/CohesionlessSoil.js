@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import styles from './modal-css.css';
 import {InputGroup,Jumbotron,Modal,Alert, ModalBody, ModalHeader, ListGroup, ListGroupItem, Card, CardBody, Popover,PopoverBody, InputGroupAddon, Input, Table, TableProps, TabContent, Button } from 'reactstrap';
-import { CantileverRetainingWall} from '../sections/cantileverRetainingWallDisFromSurfOfBackfill';
+import CohesionlessSoil from '../sections/cohesionless_soil';
 
-class CantileverWall extends Component{
+class Cohesionless extends Component{
 
     constructor(props){
         super(props);
 
         this.handleChange = this.handleChange.bind(this);                
-        this.state = {  isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            collapse5: false, collapse6: false,popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 :false,a: '', b: '', c : '', 
-            c1 : '', d : '', e : '', H : '', q_ultimate : '', q : '', rc : '', phi1 : '', phiB : '', F : '', r : '',wall_obj : {}};        
+        this.state = {  isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,
+            collapse4 : false, collapse5: false, collapse6: false,popoverOpen : false, 
+            popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 :false,
+            r: '', rsat: '', rw : '', c1 : '', c2 : '', c3 : '', q1 : '', q2 : '', q3 : '', 
+            z1 : '', z2 : '', z0 : '', F : '',wall_obj : {}};        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -68,12 +70,8 @@ class CantileverWall extends Component{
     }
 
     solveGravityWall(){
-        const {a, b, c, c1, d , e , H , q_ultimate, q, rc, phi1, phiB,F,r} = this.state;
-        //CantileverRetainingWall({ a: 0.30, b: 0.30, c : 0.30, c1 : 0, d : 0.8, e : 2.9, H : 5})
-        let wall = new CantileverRetainingWall({a,b,c,c1,d,e,H});
-        wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : 0, phi1 : phi1, phiB : phiB, F : F, r : r });
-        console.log(this.state);
-        
+        const {r, rsat, c1, c2, q1, q2, z1, z2, rw, F, q3, c3, z0 } = this.state;        
+        let wall = new CohesionlessSoil({r, rsat, c1, c2, q1, q2, z1, z2, rw, F, q3, c3, z0});
         this.setState({wall_obj : wall});
     }
 
@@ -81,159 +79,111 @@ class CantileverWall extends Component{
 
         let output =   (<Table responsive striped>
             <tbody>
-                <tr>
-                    <td>K<sub>a</sub></td>
-                    <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(): 'N/A'}</td>
-                    <td><Button id="collapse1" onClick={()=>this.handleToggle("collapse1")}>&sigma;</Button></td>                
-                    <td>
-                    <Popover placement="bottom" isOpen={this.state.collapse1} target="collapse1" toggle={()=>this.handleToggle('collpase1')}>                             
-                        <PopoverBody>
-                            <CardBody>
-                                <ListGroup>
-                                    <ListGroupItem>&sigma;<sub>a(0)</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ra(0,false): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>&sigma;<sub>h({this.state.H})</sub> : {  CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ra(this.state.H,false): 'N/A'}</ListGroupItem>                                
-                                </ListGroup>
-                            </CardBody>
-                        </PopoverBody></Popover></td>
-                </tr>
-                <tr>
-                    <td><Button id="collapse2" onClick={()=>this.handleToggle("collapse2")}>Vertical Forces ({CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumRv(): 'N/A'})</Button></td>
-                    <td>
+            <tr>
+                    <td>K<sub>a1</sub>{ CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(this.state.q1): 'N/A'}</td>                                        
+                    <td>K<sub>a2</sub>{ CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(this.state.q2): 'N/A'}</td>                                        
+                    <td>K<sub>p</sub>{ CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Kp(this.state.q3): 'N/A'}</td>                                        
+                    <td>F<sub>1</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F1(): 'N/A'}</td>
+                    <td>F<sub>2</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F2(): 'N/A'}</td>
+                    {/*<td><Button id="collapse2" onClick={()=>this.handleToggle("collapse2")}>All Active Forces</Button></td>
+                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse2} target="collapse2" toggle={()=>this.handleToggle('collpase2')}>                                 
                         <PopoverBody>
                             <CardBody>
                                 <ListGroup>
-                                    <ListGroupItem>W<sub>1</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w1(): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>W<sub>2</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w2(): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>W<sub>3</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w3(false): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>W<sub>4</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w4(): 'N/A'}</ListGroupItem>                                   
-                                    <ListGroupItem>&sum;R<sub>v</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumRv(): 'N/A'}</ListGroupItem>                                   
+                                    <ListGroupItem>F<sub>1</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F1(): 'N/A'}</ListGroupItem>
+                                    <ListGroupItem>F<sub>2</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F2(): 'N/A'}</ListGroupItem>
+                                    <ListGroupItem>F<sub>3</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F3(): 'N/A'}</ListGroupItem>
+                                    <ListGroupItem>Resultant stress F<sub>a</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Fa(): 'N/A'}</ListGroupItem>                                   
                                 </ListGroup>
                             </CardBody>
-                        </PopoverBody></Popover></td>
-                    <td><Button id="collapse3" onClick={()=>this.handleToggle("collapse3")}>Horizontal Forces ({CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumRh(0,this.state.H,false): 'N/A'})</Button></td>
+                        </PopoverBody></Popover></td> */}
+            </tr>
+            <tr>
+                    {/* <td><Button id="collapse3" onClick={()=>this.handleToggle("collapse3")}>Ys </Button></td>
                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse3} target="collapse3" toggle={()=>this.handleToggle('collpase3')}>                                 
                         <PopoverBody>
                             <CardBody>
                                 <ListGroup>
-                                    <ListGroupItem>P<sub>a1</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pa1(false): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>P<sub>a2</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pa2(0,this.state.H,false): 'N/A'}</ListGroupItem>                                    
-                                    <ListGroupItem>&sum;R<sub>h</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumRh(0,this.state.H,false): 'N/A'}</ListGroupItem>                                                                       
+                                    <ListGroupItem>y<sub>1</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.y1(): 'N/A'}</ListGroupItem>
+                                    <ListGroupItem>y<sub>2</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.y2(): 'N/A'}</ListGroupItem>                                    
+                                    <ListGroupItem>y<sub>3</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.y3(): 'N/A'}</ListGroupItem>                                    
+                                    <ListGroupItem>y<sub>a</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.ya(): 'N/A'}</ListGroupItem>                                                                       
                                 </ListGroup>
                             </CardBody>
-                        </PopoverBody></Popover></td>
-                    <td> <Button id="collapse4" onClick={()=>this.handleToggle("collapse4")}>Arm (m)</Button></td>
-                    <td>
-                    <Popover placement="bottom" isOpen={this.state.collapse4} target="collapse4" toggle={()=>this.handleToggle('collpase4')}>                                 
-                        <PopoverBody>
-                            <CardBody>
-                                <ListGroup>
-                                    <ListGroupItem>X<sub>1</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.X1(): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>X<sub>2</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.X2(): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>X<sub>3</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.X3(): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>X<sub>4</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.X4(): 'N/A'}</ListGroupItem>                                                                       
-                                    <ListGroupItem>X<sub>a1</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Xa1(): 'N/A'}</ListGroupItem>                                                                       
-                                    <ListGroupItem>X<sub>a2</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Xa2(): 'N/A'}</ListGroupItem>                                                                       
-                                    
-                                </ListGroup>
-                            </CardBody>
-                        </PopoverBody></Popover></td>
+                        </PopoverBody></Popover></td> */}
+                    <td>F<sub>3</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F3(): 'N/A'}</td>
+                    <td>F<sub>4</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.F4(): 'N/A'}</td>
+                    <td>X<sub>1</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.x1(): 'N/A'}</td>
+                    <td>X<sub>2</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.x2(): 'N/A'}</td>
+                    <td>X<sub>3</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.x3(): 'N/A'}</td>                   
                 </tr>
                 <tr>
-                    <td><Button id="collapse5" onClick={()=>this.handleToggle("collapse5")}>Moment about a point A</Button></td>
-                    <td>
-                    <Popover placement="bottom" isOpen={this.state.collapse5} target="collapse5" toggle={()=>this.handleToggle('collpase5')}>                             
-                        <PopoverBody>
-                            <CardBody>
-                                <ListGroup>
-                                    <ListGroupItem>M<sub>1</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.M1(): 'N/A'}</ListGroupItem>
-                                    <ListGroupItem>M<sub>2</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.M2(): 'N/A'}</ListGroupItem>                                
-                                    <ListGroupItem>M<sub>3</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.M3(): 'N/A'}</ListGroupItem>                                
-                                    <ListGroupItem>M<sub>4</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.M4(): 'N/A'}</ListGroupItem>                                                                
-                                                                                             
-                                    <ListGroupItem>M<sub>a1</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ma1(): 'N/A'}</ListGroupItem>                                                                
-                                    <ListGroupItem>M<sub>a2</sub> : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ma2(): 'N/A'}</ListGroupItem>                                                                
-                                    
-                                    <ListGroupItem>&sum;M : { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.SumM(): 'N/A'}</ListGroupItem>                                                                
-                                </ListGroup>
-                            </CardBody>
-                        </PopoverBody>
-                        </Popover></td>
-                    <td>Lever arm</td>
-                    <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArm(): 'N/A'}</td>
-                    <td>Eccentricity</td>
-                    <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.eccentricity(): 'N/A' }</td>
-                </tr>
+                    <td>X<sub>4</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.x4(): 'N/A'}</td>                   
+                    <td>M<sub>1</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.m1(): 'N/A'}</td>                   
+                    <td>M<sub>2</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.m2(): 'N/A'}</td>                   
+                    <td>M<sub>3</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.m3(): 'N/A'}</td>                   
+                    <td>M<sub>4</sub> : { CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.m4(): 'N/A'}</td>                   
+                </tr>      
                 <tr>
-                    <td>P<sub>max</sub></td>
-                    <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmax(): 'N/A'}</td>
-                    <td>P<sub>min</sub></td>
-                    <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmin(): 'N/A' }</td>                                    
-                    <td><Button id="collapse6" onClick={()=>this.handleToggle("collapse6")}>Factor of safety : {CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.FactorOfSafety(this.state.H,false): 'N/A' }</Button></td>
-                    <td>
-                    <Popover placement="bottom" isOpen={this.state.collapse6} target="collapse6" toggle={()=>this.handleToggle('collpase6')}>                             
-                        <PopoverBody>
-                            Is Design Safe { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.IsDesignSafe(this.state.H,false) ? "YES":"NO"): 'N/A' }
-                        </PopoverBody>
-                    </Popover>                            
-                    </td>
-                </tr>                
+                    <td>Depth of embedment</td>
+                    <td>{ CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.D(): 'N/A'}</td>                   
+                    <td>T</td>
+                    <td>{CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.T(): 'N/A'}</td>                   
+                </tr>          
             </tbody>
         </Table>);
         return (
                 <div>                   
                     <Jumbotron>
                     <div className="row">
-                    <h4>Cantilever Retaining Wall, With a Horizontal Backfill Surface, with the Water Table below the base of the wall</h4>
+                    <h4>Anchored Sheet Pile Wall for Cohesionless Soil Below Dredge Line With Granular Soil Backfill</h4>
                     { this.state.isValid ? "" : <Alert color="danger">All fields must be filled</Alert>}
                         <div className="col-md-12">               
                         <br/>
                             <div className="row">
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">a</InputGroupAddon>
-                                        <Input value={this.state["a"]} onChange={this.handleChange.bind(this,"a")}  />
+                                        <InputGroupAddon addonType="prepend">&gamma;</InputGroupAddon>
+                                        <Input value={this.state["r"]} onChange={this.handleChange.bind(this,"r")}  />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">b</InputGroupAddon>
-                                        <Input value={this.state["b"]} onChange={this.handleChange.bind(this,"b")}  />
+                                        <InputGroupAddon addonType="prepend">&gamma;sat</InputGroupAddon>
+                                        <Input value={this.state["rsat"]} onChange={this.handleChange.bind(this,"rsat")}  />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">c</InputGroupAddon>
-                                        <Input  value={this.state["c"]} onChange={this.handleChange.bind(this,"c")} />
+                                        <InputGroupAddon addonType="prepend">&gamma;w</InputGroupAddon>
+                                        <Input  value={this.state["rw"]} onChange={this.handleChange.bind(this,"rw")} />
+                                    </InputGroup><br/>
+                                </div>         
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">c1</InputGroupAddon>
+                                        <Input  value={this.state["c1"]} onChange={this.handleChange.bind(this,"c1")} />
                                     </InputGroup><br/>
                                 </div>
                                 
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">C'</InputGroupAddon>
-                                        <Input  value={this.state["c1"]} onChange={this.handleChange.bind(this,"c1")} />
+                                        <InputGroupAddon addonType="prepend">c2</InputGroupAddon>
+                                        <Input  value={this.state["c2"]} onChange={this.handleChange.bind(this,"c2")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">d</InputGroupAddon>
-                                        <Input  value={this.state["d"]} onChange={this.handleChange.bind(this,"d")} />
+                                        <InputGroupAddon addonType="prepend">c3</InputGroupAddon>
+                                        <Input  value={this.state["c3"]} onChange={this.handleChange.bind(this,"c3")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">e</InputGroupAddon>
-                                        <Input  value={this.state["e"]} onChange={this.handleChange.bind(this,"e")} />
-                                    </InputGroup>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">H</InputGroupAddon>
-                                        <Input  value={this.state["H"]} onChange={this.handleChange.bind(this,"H")} />
+                                        <InputGroupAddon addonType="prepend">Q1</InputGroupAddon>
+                                        <Input  value={this.state["q1"]} onChange={this.handleChange.bind(this,"q1")} />
                                     </InputGroup>
                                 </div>
                             </div>
@@ -244,34 +194,35 @@ class CantileverWall extends Component{
                         <div className="col-md-12">
                             <br/>
                             <div className="row">
+
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">Qu</InputGroupAddon>
-                                        <Input  value={this.state["q_ultimate"]} onChange={this.handleChange.bind(this,"q_ultimate")} />
+                                        <InputGroupAddon addonType="prepend">Q2</InputGroupAddon>
+                                        <Input  value={this.state["q2"]} onChange={this.handleChange.bind(this,"q2")} />
+                                    </InputGroup>
+                                </div>
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">Q3</InputGroupAddon>
+                                        <Input  value={this.state["q3"]} onChange={this.handleChange.bind(this,"q3")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">q</InputGroupAddon>
-                                        <Input  value={this.state["q"]} onChange={this.handleChange.bind(this,"q")} />
+                                        <InputGroupAddon addonType="prepend">z1</InputGroupAddon>
+                                        <Input  value={this.state["z1"]} onChange={this.handleChange.bind(this,"z1")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">&gamma;c</InputGroupAddon>
-                                        <Input  value={this.state["rc"]} onChange={this.handleChange.bind(this,"rc")} />
-                                    </InputGroup><br/>
-                                </div>         
-                                <div className="col-md-2">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">&Phi;'</InputGroupAddon>
-                                        <Input  value={this.state["phi1"]} onChange={this.handleChange.bind(this,"phi1")} />
+                                        <InputGroupAddon addonType="prepend">z2</InputGroupAddon>
+                                        <Input  value={this.state["z2"]} onChange={this.handleChange.bind(this,"z2")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
                                     <InputGroup>
-                                        <InputGroupAddon addonType="prepend">&Phi;b</InputGroupAddon>
-                                        <Input  value={this.state["phiB"]} onChange={this.handleChange.bind(this,"phiB")} />
+                                        <InputGroupAddon addonType="prepend">z0</InputGroupAddon>
+                                        <Input  value={this.state["z0"]} onChange={this.handleChange.bind(this,"z0")} />
                                     </InputGroup><br/>
                                 </div>
                                 <div className="col-md-2">
@@ -280,12 +231,7 @@ class CantileverWall extends Component{
                                         <Input  value={this.state["F"]} onChange={this.handleChange.bind(this,"F")} />
                                     </InputGroup><br/>
                                 </div>
-                                <div className="col-md-2">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">r</InputGroupAddon>
-                                        <Input  value={this.state["r"]} onChange={this.handleChange.bind(this,"r")} />
-                                    </InputGroup>
-                                </div>
+                                
                             </div>
                             
                             <br/>
@@ -316,7 +262,7 @@ class CantileverWall extends Component{
                     <ModalHeader toggle={()=>this.toggle('modal2')}>Calculations Result</ModalHeader>
                     <ModalBody>
                         <div className="row">                
-                        {CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ?  output: "" }                        
+                        {CohesionlessSoil.prototype.isPrototypeOf(this.state.wall_obj) ?  output: "" }                        
                         </div>
                     </ModalBody>
                     </Modal>
@@ -325,4 +271,4 @@ class CantileverWall extends Component{
         );
     }
 }
-export default CantileverWall;
+export default Cohesionless;
