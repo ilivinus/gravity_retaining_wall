@@ -124,6 +124,16 @@ CohesionlessSoil.prototype.D = function(){
     - ${(0.333) * Math.pow(this.z2,3) * this.rsat * this.Ka(this.q2)}
     + ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)}
     - ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)}
+    - ${0.333 * this.rw * this.Ka(this.q2)} * x^3
+    - ${this.z2 * this.rw * this.Ka(this.q2)} * x^2
+    - ${0.5 * this.z1 * this.rw * this.Ka(this.q2)} * x^2
+    + ${0.5 * this.z0 * this.rw * this.Ka(this.q2)} * x^2
+    - ${Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)} * x
+    - ${this.z1 * this.z2 * this.rw * this.Ka(this.q2)} * x
+    + ${this.z0 * this.z2 * this.rw * this.Ka(this.q2)} * x
+    - ${0.333 * Math.pow(this.z2,3) * this.rw * this.Ka(this.q2)}
+    - ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2) }
+    + ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2) }
     - ${0.167 * this.Kp(this.q3) * this.rsat} * x^3
     - ${0.25 * this.Kp(this.q3) * this.z2 * this.rsat} * x^2
     - ${0.25 * this.Kp(this.q3) * this.z1 * this.rsat} * x^2
@@ -141,7 +151,7 @@ CohesionlessSoil.prototype.T = function(){
     return (this.F1() + this.F2() +this.F3() - this.F4()).toDec(2);
 }
 
-var dd = new CohesionlessSoil(inputData);
-console.log("Result",dd.D())
+// var dd = new CohesionlessSoil(inputData);
+// console.log("Result",dd.D())
 
-//export default CohesionlessSoil;
+export default CohesionlessSoil;
