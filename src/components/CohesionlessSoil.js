@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './modal-css.css';
-import {InputGroup,Jumbotron,Modal,Alert, ModalBody, ModalHeader, ListGroup, ListGroupItem, Card, CardBody, Popover,PopoverBody, InputGroupAddon, Input, Table, TableProps, TabContent, Button } from 'reactstrap';
+import {InputGroup,Jumbotron,Modal,Alert, ModalBody, ModalHeader, InputGroupAddon, Input, Table, Button } from 'reactstrap';
 import CohesionlessSoil from '../sections/cohesionless_soil';
 
 class Cohesionless extends Component{

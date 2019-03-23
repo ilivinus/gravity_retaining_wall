@@ -3,23 +3,10 @@
  */
 var alg = require('algebra.js');
 
-// var equ = alg.parse(`x^3 + 5.4 * x^2 - 21.3 * x - 41.7 = 0`);
-// console.log(equ.toString());
-// console.log(equ.solveFor("x"));
-// var expr = new  alg.Expression("x");
-// expr = expr.multiply("x").multiply("x");
-
-// expr = expr.add("5.4").multiply("x")
-// expr = expr.multiply("x");
-// expr = expr.subtract("-21.3").multiply("x");
-// expr = expr.subtract("-41.7")
-// var equ = new alg.Equation(expr,0);
-// console.log(equ.toString());
-// console.log(equ.solveFor("x"));
 Number.prototype.toDec = function(num){
     return Number(this.toFixed(num));
 }
-const inputData = {r : 18, rsat : 22, c1 : 0, c2 : 0, q1 : 30, q2 : 34, z1 : 3, z2 : 6, rw : 9.8, F : 1.5, q3 : 0, c3 : 70, z0 : 1.2 };
+const inputData = {r : 18, rsat : 20, c1 : 0, c2 : 0, q1 : 35, q2 : 35, z1 : 3, z2 : 3, rw : 9.8, F : 2, q3 : 35, c3 : 0, z0 : 1 };
 
 function CohesionlessSoil({r, rsat, c1, c2, q1, q2, z1, z2, rw, F, q3, c3, z0 }){
     if(isNaN(r)) throw Error("r must be a number");
@@ -35,19 +22,19 @@ function CohesionlessSoil({r, rsat, c1, c2, q1, q2, z1, z2, rw, F, q3, c3, z0 })
     if(isNaN(q3)) throw Error("q3 must be a number");
     if(isNaN(c3)) throw Error("c3 must be a number");
     if(isNaN(z0)) throw Error("z0 must be a number");
-    this.r = r;
-    this.rsat = rsat;
-    this.c1 = c1;
-    this.c2 = c2;
-    this.q1 = q1;
-    this.q2 = q2;
-    this.z1 = z1;
-    this.z2 = z2;
-    this.rw = rw;
-    this.F  = F;
-    this.q3 = q3;
-    this.c3 = c3;
-    this.z0 = z0;
+    this.r = Number(r);
+    this.rsat = Number(rsat);
+    this.c1 = Number(c1);
+    this.c2 = Number(c2);
+    this.q1 = Number(q1);
+    this.q2 = Number(q2);
+    this.z1 = Number(z1);
+    this.z2 = Number(z2);
+    this.rw = Number(rw);
+    this.F  = Number(F);
+    this.q3 = Number(q3);
+    this.c3 = Number(c3);
+    this.z0 = Number(z0);
     this.Mathh = {
         _tan : (rad) => Math.tan(rad * Math.PI / 180),
         _sin : (rad) => Math.sin(rad * Math.PI / 180),
@@ -104,7 +91,7 @@ CohesionlessSoil.prototype.m4 = function(){
 
 CohesionlessSoil.prototype.D = function(){
     let equation = `
-    ${(1/3) * this.r * Math.pow(this.z1,3) * this.Ka(this.q1)}
+    ${ 0.33 * this.r * Math.pow(this.z1,3) * this.Ka(this.q1)}
     - ${0.5 * this.r * this.z0 * Math.pow(this.z1,2) * this.Ka(this.q1)}
     + ${0.5 * this.r * this.z1 * this.Ka(this.q2)} * x^2
     + ${0.5 * this.r * this.z1 * this.z2 * this.Ka(this.q2)} * x
@@ -114,24 +101,24 @@ CohesionlessSoil.prototype.D = function(){
     + ${this.r * Math.pow(this.z1,2) * this.z2 * this.Ka(this.q2)}
     - ${this.r * this.z0 * this.z1 * this.Ka(this.q2)} * x
     - ${this.r * this.z0 * this.z1 * this.z2 * this.Ka(this.q2)}
-    + ${(0.333) * this.rsat * this.Ka(this.q2)} * x^3
+    + ${(0.33) * this.rsat * this.Ka(this.q2)} * x^3
     + ${this.z2 * this.rsat * this.Ka(this.q2)} * x^2
     + ${0.5 * this.z1 * this.rsat * this.Ka(this.q2)} * x^2
     - ${0.5 * this.z0 * this.rsat * this.Ka(this.q2)} * x^2
     + ${Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)} * x
     + ${this.z1 * this.z2 * this.rsat * this.Ka(this.q2)} * x
     - ${this.z0 * this.z2 * this.rsat * this.Ka(this.q2)} * x
-    - ${(0.333) * Math.pow(this.z2,3) * this.rsat * this.Ka(this.q2)}
+    - ${(0.33) * Math.pow(this.z2,3) * this.rsat * this.Ka(this.q2)}
     + ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)}
     - ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)}
-    - ${0.333 * this.rw * this.Ka(this.q2)} * x^3
+    - ${0.33 * this.rw * this.Ka(this.q2)} * x^3
     - ${this.z2 * this.rw * this.Ka(this.q2)} * x^2
     - ${0.5 * this.z1 * this.rw * this.Ka(this.q2)} * x^2
     + ${0.5 * this.z0 * this.rw * this.Ka(this.q2)} * x^2
     - ${Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)} * x
     - ${this.z1 * this.z2 * this.rw * this.Ka(this.q2)} * x
     + ${this.z0 * this.z2 * this.rw * this.Ka(this.q2)} * x
-    - ${0.333 * Math.pow(this.z2,3) * this.rw * this.Ka(this.q2)}
+    - ${0.33 * Math.pow(this.z2,3) * this.rw * this.Ka(this.q2)}
     - ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2) }
     + ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2) }
     - ${0.167 * this.Kp(this.q3) * this.rsat} * x^3
@@ -144,14 +131,13 @@ CohesionlessSoil.prototype.D = function(){
     - ${0.25 * this.Kp(this.q3) * this.z0 * this.rw} * x^2 = 0`;
     let equ = alg.parse(equation);    
     console.log(equ.toString());
-    return equ.solveFor('x');
-    //return (Math.max(...(equ.solveFor('x')))).toDec(2);
+    //return equ.solveFor('x');
+    return (Math.max(...(equ.solveFor('x')))).toDec(2);
 }
 CohesionlessSoil.prototype.T = function(){
     return (this.F1() + this.F2() +this.F3() - this.F4()).toDec(2);
 }
-
-// var dd = new CohesionlessSoil(inputData);
-// console.log("Result",dd.D())
+let dd = new CohesionlessSoil(inputData);
+console.log("Result",dd.D());
 
 export default CohesionlessSoil;

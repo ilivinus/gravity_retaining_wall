@@ -85,7 +85,7 @@ export default class App extends Component{
             <Route path="/about" component={About} />
             <Route path="/gravity_dashboard" component={GravityDashboard} />
             <Route path="/cantilever_dashboard" component={CantileverDashboard} />
-            <Route path="/cohensionless_soil" component={CohesionlessSoil} />
+            <Route path="/cohesionless_soil" component={CohesionlessSoil} />
             <Route path="/cohesive_soil" component={CohesiveSoil} />
             <Route path="/anchored_dashboard" component={AnchoredDashboard} />
         </Container>
