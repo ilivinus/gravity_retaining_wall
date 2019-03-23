@@ -59,10 +59,10 @@ CohesionlessSoil.prototype.F2 = function(){
     return (this.r * this.z1 * this.Ka(this.q2) * (this.D() + this.z2)).toDec(2);
 }
 CohesionlessSoil.prototype.F3 = function(){
-    return (0.5 * (this.rsat - this.rw) * ( this.D()  + this.z2 * this.z2 )* this.Ka(this.q2)).toDec(2);
+    return (0.5 * (this.rsat - this.rw) * Math.pow( this.D()  + this.z2, 2) * this.Ka(this.q2)).toDec(2);
 }
 CohesionlessSoil.prototype.F4 = function(){
-    return (-0.5 * this.Kp() * (this.rsat - this.rw) * this.D() * this.D() * 0.5).toDec(2);
+    return (-0.5 * this.Kp(this.q3) * (this.rsat - this.rw) * this.D() * this.D() * 0.5).toDec(2);
 }
 CohesionlessSoil.prototype.x1 = function(){
     return (((2 * this.z1) / 3) - this.z0).toDec(2);
@@ -91,53 +91,55 @@ CohesionlessSoil.prototype.m4 = function(){
 
 CohesionlessSoil.prototype.D = function(){
     let equation = `
-    ${ 0.33 * this.r * Math.pow(this.z1,3) * this.Ka(this.q1)}
-    - ${0.5 * this.r * this.z0 * Math.pow(this.z1,2) * this.Ka(this.q1)}
+    ${0.33 * this.r * this.Ka(this.q1) * Math.pow(this.z1,3)}
+    - ${0.5 * this.r * this.Ka(this.q1) * this.z0 * Math.pow(this.z1,2)}
     + ${0.5 * this.r * this.z1 * this.Ka(this.q2)} * x^2
     + ${0.5 * this.r * this.z1 * this.z2 * this.Ka(this.q2)} * x
-    + ${0.5 * this.r * this.z1 * this.z2 * this.Ka(this.q2)} * x
-    + ${0.5 * this.r * this.z1 * Math.pow(this.z2, 2) * this.Ka(this.q2)}
-    + ${this.r * Math.pow(this.z1, 2) * this.Ka(this.q2)} * x
-    + ${this.r * Math.pow(this.z1,2) * this.z2 * this.Ka(this.q2)}
+    + ${this.r * Math.pow(this.z1,2) * this.Ka(this.q2)} * x
     - ${this.r * this.z0 * this.z1 * this.Ka(this.q2)} * x
+    + ${0.5 * this.r * this.z1 * this.z2 * this.Ka(this.q2)} * x
+    + ${0.5 * this.r * this.z1 * Math.pow(this.z2,2) * this.Ka(this.q2)}
+    + ${this.r * Math.pow(this.z1,2) * this.z2 * this.Ka(this.q2)}
     - ${this.r * this.z0 * this.z1 * this.z2 * this.Ka(this.q2)}
-    + ${(0.33) * this.rsat * this.Ka(this.q2)} * x^3
-    + ${this.z2 * this.rsat * this.Ka(this.q2)} * x^2
+    + ${(0.33 * this.rsat * this.Ka(this.q2)).toDec(2)} * x^3
+    + ${0.33 * this.z2 * this.rsat * this.Ka(this.q2)} * x^2
     + ${0.5 * this.z1 * this.rsat * this.Ka(this.q2)} * x^2
     - ${0.5 * this.z0 * this.rsat * this.Ka(this.q2)} * x^2
-    + ${Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)} * x
+    + ${0.67 * this.z2 * this.rsat * this.Ka(this.q2)} * x^2
+    + ${0.67 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)} * x
     + ${this.z1 * this.z2 * this.rsat * this.Ka(this.q2)} * x
     - ${this.z0 * this.z2 * this.rsat * this.Ka(this.q2)} * x
-    - ${(0.33) * Math.pow(this.z2,3) * this.rsat * this.Ka(this.q2)}
+    + ${0.33 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)} * x
+    + ${0.33 * Math.pow(this.z2,3) * this.rsat * this.Ka(this.q2)}
     + ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)}
     - ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rsat * this.Ka(this.q2)}
-    - ${0.33 * this.rw * this.Ka(this.q2)} * x^3
-    - ${this.z2 * this.rw * this.Ka(this.q2)} * x^2
+    - ${(0.33 * this.rw * this.Ka(this.q2)).toDec(2)} * x^3
+    - ${0.33 * this.z2 * this.rw * this.Ka(this.q2)} * x^2
     - ${0.5 * this.z1 * this.rw * this.Ka(this.q2)} * x^2
     + ${0.5 * this.z0 * this.rw * this.Ka(this.q2)} * x^2
-    - ${Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)} * x
+    - ${0.67 * this.z2 * this.rw * this.Ka(this.q2)} * x^2
+    - ${0.67 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)} * x
     - ${this.z1 * this.z2 * this.rw * this.Ka(this.q2)} * x
     + ${this.z0 * this.z2 * this.rw * this.Ka(this.q2)} * x
+    - ${0.33 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)} * x
     - ${0.33 * Math.pow(this.z2,3) * this.rw * this.Ka(this.q2)}
-    - ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2) }
-    + ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2) }
-    - ${0.167 * this.Kp(this.q3) * this.rsat} * x^3
-    - ${0.25 * this.Kp(this.q3) * this.z2 * this.rsat} * x^2
-    - ${0.25 * this.Kp(this.q3) * this.z1 * this.rsat} * x^2
-    - ${0.25 * this.Kp(this.q3) * this.z0 * this.rsat} * x^2
-    + ${0.167 * this.Kp(this.q3) * this.rw} * x^3
-    + ${0.25 * this.Kp(this.q3) * this.z2 * this.rw} * x^2
-    + ${0.25 * this.Kp(this.q3) * this.z1 * this.rw} * x^2
-    - ${0.25 * this.Kp(this.q3) * this.z0 * this.rw} * x^2 = 0`;
+    - ${0.5 * this.z1 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)}
+    + ${0.5 * this.z0 * Math.pow(this.z2,2) * this.rw * this.Ka(this.q2)}
+    - ${(0.167 * this.Kp(this.q3) * this.rsat).toDec(2)} * x^3
+    - ${0.25 * this.z2 * this.Kp(this.q3) * this.rsat} * x^2
+    - ${0.25 * this.z1 * this.Kp(this.q3) * this.rsat} * x^2
+    + ${0.25 * this.z0 * this.Kp(this.q3) * this.rsat} * x^2
+    + ${(0.167 * this.rw * this.Kp(this.q3)).toDec(2)} * x^3
+    + ${0.25 * this.rw * this.z2 * this.Kp(this.q3)} * x^2
+    + ${0.25 * this.rw * this.z1 * this.Kp(this.q3)} * x^2
+    - ${0.25 * this.rw * this.z0 * this.Kp(this.q3)} * x^2 = 0`
     let equ = alg.parse(equation);    
-    console.log(equ.toString());
-    //return equ.solveFor('x');
     return (Math.max(...(equ.solveFor('x')))).toDec(2);
 }
 CohesionlessSoil.prototype.T = function(){
     return (this.F1() + this.F2() +this.F3() - this.F4()).toDec(2);
 }
 let dd = new CohesionlessSoil(inputData);
-console.log("Result",dd.D());
+console.log("Result",dd.D(),dd.F1(),dd.F2(),dd.F3(),dd.F4(),dd.T());
 
 export default CohesionlessSoil;
