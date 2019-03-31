@@ -98,9 +98,9 @@ CohesiveSoil.prototype.q_ = function(){
 }
 
 CohesiveSoil.prototype.D = function(){
-    let h2 = 2 * (this.z1 + this.z2 - this.z0);
+    let h1 = 2 * (this.z1 + this.z2 - this.z0);
     let constant = ((2 * this.ya() * this.Fa())/(((4 * this.c3)/this.F) - this.q_())).toDec(2);
-    let equ = alg.parse(`x^2 + ${h2} * x - ${constant} = 0`);   
+    let equ = alg.parse(`x^2 + ${h1} * x - ${constant} = 0`);       
     return (Math.max(...(equ.solveFor('x')))).toDec(2);
 }
 

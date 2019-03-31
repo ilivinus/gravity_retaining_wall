@@ -139,7 +139,7 @@ class GravityWallRankine extends Component{
                         <tr><td>P<sub>min</sub></td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmin(()=>this.state.wall_obj.summationRv_(hp),()=>this.state.wall_obj.leverArmSignRv_(hp)): 'N/A'}</td>
                             <td>Factor of safety</td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(this.state.wall_obj.summationRv_(hp),this.state.wall_obj.summationRh_(hp),this.state.wall_obj.Pp(hp)): 'N/A'}  Is Ok? </td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(this.state.wall_obj.summationRv_(hp),this.state.wall_obj.summationRh_(hp),this.state.wall_obj.Pp(hp)): 'N/A'}</td>
                             <td>Is factor of safety ok</td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isFactorSatisfied(this.state.wall_obj.factorOfSafety(hp)) ? 'YES':'NO'): 'N/A'}</td>
                         </tr>                        
@@ -374,13 +374,13 @@ class GravityWallRankine extends Component{
                     <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img src={ require("../images/gravity_wall_rankine_preview")} />
+                        <img height="100%" width="100%" src={ require("../images/gravity_wall_rankine_preview")} />
                         </ModalBody>
                     </Modal>
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img src={ require("../images/gravity_wall_rankine_raw")} />
+                        <img height="100%" width="100%" src={ require("../images/gravity_wall_rankine_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>
