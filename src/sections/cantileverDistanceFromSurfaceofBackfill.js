@@ -8,7 +8,6 @@ Number.prototype.toDec = function(num){
 
 exports.setConstantTerms =  function setConstantTerms(rc,r,factorConst){
     constants.factorConst = factorConst;
-    
     constants.r = r;
 }
 
@@ -43,15 +42,17 @@ function CantileverRetainingWall(opt){
         _cos : (rad) => (Math.cos(rad * Math.PI / 180))
     }
 }
-CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, phi1, phiB, F, r,h1,Po}){
-    if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate');
-    if(isNaN(q)) throw new Error('Invalid entry for q');
-    if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1');    
-    if(!phiB || phiB < 0) throw new Error('Invalid entry for phiB');
-    if(!F || F < 0) throw new Error('Invalid entry for F');
-    if(!r || r < 0) throw new Error('Invalid entry for r');
-    if(!h1 || h1 < 0) throw new Error('Invalid entry for h1');
-    if(!Po || Po < 0) throw new Error('Invalid entry for Po');
+CantileverRetainingWall.prototype.givenData = function({q_ultimate,q, rc, rsat, phi1, phiB, F, r,h1,Po,rw}){
+    if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate')
+    if(isNaN(q)) throw new Error('Invalid entry for q')
+    if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1')    
+    if(!phiB || phiB < 0) throw new Error('Invalid entry for phiB')
+    if(!F || F < 0) throw new Error('Invalid entry for F')
+    if(!r || r < 0) throw new Error('Invalid entry for r')
+    if(!h1 || h1 < 0) throw new Error('Invalid entry for h1')
+    if(!Po || Po < 0) throw new Error('Invalid entry for Po')
+    if(!rw || rw < 0) throw new Error("Invalid entry for rw")
+    this.rw = Number(rw)
     this.Po = Number(Po);
     this.q_ultimate = q_ultimate;
     this.q = Number(q);
@@ -71,11 +72,11 @@ CantileverRetainingWall.prototype.Ka = function(){
 }
 
 CantileverRetainingWall.prototype.Ra = function(z = 0,isOna = true){     
-   let r1 = this.rsat - constants.rw;
+   let r1 = this.rsat - this.rw;
     if(z == 0 || (z == this.h1) && isOna){
        return Number((this.q * this.Ka()) + (this.r * this.Ka() * z) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(3);            
     }else{
-       return Number((this.q * this.Ka()) + (this.r * this.h1 * this.Ka()) + (r1 * this.Ka() * ( z - this.h1)) + (constants.rw * (z - this.h1)) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(3);            
+       return Number((this.q * this.Ka()) + (this.r * this.h1 * this.Ka()) + (r1 * this.Ka() * ( z - this.h1)) + (this.rw * (z - this.h1)) - (2 * this.c1 * Math.sqrt(this.Ka()))).toDec(3);            
     }
 }
 

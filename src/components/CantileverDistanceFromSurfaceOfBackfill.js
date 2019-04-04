@@ -5,15 +5,16 @@ import { CantileverDistanceFromSurface } from '../sections/cantileverDistanceFro
 
 class CantileverWallUpSurface extends Component{
     constructor(props){
-        super(props);
+        super(props)
         this.handleChange = this.handleChange.bind(this);                
-        this.state = { isValid: true, collapse1: false, collapse2 : false,
-             collaspe3 : false,collapse4 : false,
+        this.state = { 
+            isValid: true, collapse1: false, collapse2 : false,
+            collaspe3 : false,collapse4 : false,
             collapse5: false, collapse6: false,popoverOpen : false, 
             popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false,
             modal3 :false, a: '', b: '', c : '', c1 : '', d : '', e : '', H : '', 
             q_ultimate : '', q : '', rc : '', rsat : '', phi1 : '', 
-            phiB : '', F : '', r : '',h1 : '',Po : '',wall_obj : {}};        
+            phiB : '', F : '', r : '',h1 : '',Po : '', rw : '',wall_obj : {}};        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggle = this.toggle.bind(this);
         this.togglesClose = this.togglesClose.bind(this);
@@ -67,11 +68,10 @@ class CantileverWallUpSurface extends Component{
     }
 
     solveGravityWall(){
-        const {a, b, c, c1, d , e , H , q_ultimate, q, rc, rsat, phi1, phiB,F,r,h1,Po} = this.state;
+        const {a, b, c, c1, d , e , H , q_ultimate, q, rc, rsat, phi1, phiB,F,r,h1,Po, rw} = this.state;
         //CantileverDistanceFromSurface({ a: 0.30, b: 0.30, c : 0.30, c1 : 0, d : 0.8, e : 2.9, H : 5})
         let wall = new CantileverDistanceFromSurface({a,b,c,c1,d,e,H});
-        wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : rsat, phi1 : phi1, phiB : phiB, F : F, r : r, h1 : h1, Po : Po});
-        console.log(this.state);
+        wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : rsat, phi1 : phi1, phiB : phiB, F : F, r : r, h1 : h1, Po : Po, rw : rw});
         
         this.setState({wall_obj : wall});        
     }
