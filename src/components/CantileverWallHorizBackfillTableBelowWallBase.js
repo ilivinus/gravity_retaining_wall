@@ -82,7 +82,7 @@ class CantileverWall extends Component{
         let output =   (<Table responsive striped>
             <tbody>
                 <tr>
-                    <td>P<sub>a</sub></td>
+                    <td>K<sub>a</sub></td>
                     <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Ka(): 'N/A'}</td>
                     <td><Button id="collapse1" onClick={()=>this.handleToggle("collapse1")}>&sigma;</Button></td>                
                     <td>
@@ -111,7 +111,7 @@ class CantileverWall extends Component{
                                 </ListGroup>
                             </CardBody>
                         </PopoverBody></Popover></td>
-                    <td><Button id="collapse3" onClick={()=>this.handleToggle("collapse3")}>Horizontal Forces ({CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumRh(0,this.state.H): 'N/A'})</Button></td>
+                    <td><Button id="collapse3" onClick={()=>this.handleToggle("collapse3")}>Horizontal Forces ({CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.sumRh(0,this.state.H,false): 'N/A'})</Button></td>
                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse3} target="collapse3" toggle={()=>this.handleToggle('collpase3')}>                                 
                         <PopoverBody>
@@ -170,11 +170,11 @@ class CantileverWall extends Component{
                     <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmax(): 'N/A'}</td>
                     <td>P<sub>min</sub></td>
                     <td>{ CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmin(): 'N/A' }</td>                                    
-                    <td><Button id="collapse6" onClick={()=>this.handleToggle("collapse6")}>Factor of safety : {CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.FactorOfSafety(): 'N/A' }</Button></td>
+                    <td><Button id="collapse6" onClick={()=>this.handleToggle("collapse6")}>Factor of safety : {CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.FactorOfSafety(this.state.H,false): 'N/A' }</Button></td>
                     <td>
                     <Popover placement="bottom" isOpen={this.state.collapse6} target="collapse6" toggle={()=>this.handleToggle('collpase6')}>                             
                         <PopoverBody>
-                            Is Design Safe { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.IsDesignSafe() ? "YES":"NO"): 'N/A' }
+                            Is Design Safe { CantileverRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.IsDesignSafe(this.state.H,false) ? "YES":"NO"): 'N/A' }
                         </PopoverBody>
                     </Popover>                            
                     </td>
@@ -302,13 +302,13 @@ class CantileverWall extends Component{
                     <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img src={ require("../images/cantilever_below_wall_preview")} />
+                        <img height="100%" width="100%" src={ require("../images/cantilever_below_wall_preview")} />
                         </ModalBody>
                     </Modal>
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img src={ require("../images/cantilever_below_wall_raw")} />
+                        <img height="100%" width="100%" src={ require("../images/cantilever_below_wall_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>

@@ -24,7 +24,7 @@ function GravityRetainingWall(opt){
     if(!opt.d || opt.d < 0) throw new Error('Invalid entry (d) for heel length of the wall');
     if(!opt.e || !opt.f || opt.e < 0 || opt.f < 0) throw new Error('Invalid entry for base thickness');
     if(!opt.g || opt.g < 0) throw new Error('Invalid entry (g)');
-    if(!opt.H || opt.H < 0) throw new Error('Invalid entry (h)');
+    if(!opt.Ha || opt.Ha < 0) throw new Error('Invalid entry (h)');
 
     this.toe_length = Number(opt.a);
     this.b = Number(opt.b);
@@ -34,7 +34,7 @@ function GravityRetainingWall(opt){
     this.heel_length = Number(opt.d);
     this.e = this.f = (opt.e === opt.f)?opt.e : opt.f; //base_thickness;
     this.B = this.toe_length + this.b + this.top_thickness + this.g + this.heel_length;
-    this.wall_height = Number(opt.H);
+    this.wall_height = Number(opt.Ha);
 
     this.Mathh = {
         _tan : (rad) => Math.tan(rad * Math.PI / 180),
@@ -59,7 +59,7 @@ GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1, phi
     this.F = F;
     this.q_allow = Number(this.q_ultimate/this.F);
     this.h = (this.g + this.heel_length) * this.Mathh._tan(this.beta);
-    this.Ha = this.wall_height + this.h;
+    this.H = this.wall_height + this.h;
 
     // return{
     //     q_ultimate,
@@ -79,7 +79,7 @@ GravityRetainingWall.prototype.Ka = function(){
     
 }
 GravityRetainingWall.prototype.Pa = function(){
-    return (0.5 * constants.r * Math.pow(this.Ha,2) * this.Ka()).toDec(2)        ;
+    return (0.5 * constants.r * Math.pow(this.H,2) * this.Ka()).toDec(2)        ;
 }
 /**
  * For W1 (Shape 1, triangle)
@@ -162,7 +162,7 @@ GravityRetainingWall.prototype.leverArmX7 = function(){
 }
 
 GravityRetainingWall.prototype.leverArmXh = function(){
-    return (this.Ha / 3).toDec(2);
+    return (this.H / 3).toDec(2);
 }
 
 GravityRetainingWall.prototype.leverArmXv = () => 0;
@@ -247,9 +247,16 @@ GravityRetainingWall.prototype.Pmin = function(summationRv,leverArmSumRv){
 }
 
 //Factor of safety against sliding, F
-GravityRetainingWall.prototype.factorOfSafety = function(Pp = 0){
-    
-    return ((this.summationRv() * this.Mathh._tan(this.phi) + Pp) / this.summationRh()).toDec(2);
+GravityRetainingWall.prototype.factorOfSafety = function(){
+    let sumRv = arguments.length > 0 ?  arguments[0] : this.summationRv();
+    let sumRh = arguments.length > 1 ? arguments[1] : this.summationRh();
+    let Pp = arguments.length > 2 ? arguments[2] : 0;
+    console.log("Livinus");
+    console.log(sumRv);
+    console.log(sumRh);
+    console.log(Pp);
+    console.log("End");
+    return ((sumRv * this.Mathh._tan(this.phi) + Pp) / sumRh).toDec(2);
 }
 
 GravityRetainingWall.prototype.isFactorSatisfied = function(Hp){

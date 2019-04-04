@@ -93,8 +93,8 @@ CantileverRetainingWall.prototype.w3 = function(isSat = true){
 CantileverRetainingWall.prototype.w4 = function(){
     return (this.q * this.e).toDec(2);
 }
-CantileverRetainingWall.prototype.sumRv = function(P = 0, isSat = false){
-    return (this.w1() + this.w2() + this.w3(isSat) + this.w4() + P).toDec(2);
+CantileverRetainingWall.prototype.sumRv = function(P = 0){
+    return (this.w1() + this.w2() + this.w3() + this.w4() + P).toDec(2);
 }
 //Horizontal forces
 CantileverRetainingWall.prototype.Pa1 = function(isSat =true){
@@ -140,10 +140,10 @@ CantileverRetainingWall.prototype.M3 = function(){
 CantileverRetainingWall.prototype.M4 = function(){
     return (this.w4() * this.X4()).toDec(2);
 }
-CantileverRetainingWall.prototype.Ma1 = function(isSat = false){
+CantileverRetainingWall.prototype.Ma1 = function(isSat = true){
     return (this.Pa1(isSat) * this.Xa1()).toDec(2);
 }
-CantileverRetainingWall.prototype.Ma2 = function(isSat = false){
+CantileverRetainingWall.prototype.Ma2 = function(isSat = true){
     return (this.Pa2(0.0,5.0, isSat) * this.Xa2()).toDec(2);
 }
 CantileverRetainingWall.prototype.SumM = function(){
@@ -173,10 +173,10 @@ CantileverRetainingWall.prototype.IPmaxOk = function(){
     return this.Pmax() < this.q_allow;
 }
 
-CantileverRetainingWall.prototype.FactorOfSafety = function(h = 5 ,isSat = false){
+CantileverRetainingWall.prototype.FactorOfSafety = function(h = 5 ,isSat = true){
     return ((this.sumRv(0,isSat) * this.Mathh._tan(this.phiB)) / this.sumRh(0,h,isSat)).toDec(2);
 }
-CantileverRetainingWall.prototype.IsDesignSafe = function(h = 5,isSat = false){
+CantileverRetainingWall.prototype.IsDesignSafe = function(h = 5,isSat = true){
     return this.FactorOfSafety(h, isSat) > 1.5;
 }
 

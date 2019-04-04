@@ -14,8 +14,8 @@ class GravityWallRankine extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: 'l',a:'',b:'',
-            c:'',d:'',e:'',f:'',g:'',H:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',F:'',wall_obj : {}};
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: '',a:'',b:'',
+            c:'',d:'',e:'',f:'',g:'',Ha:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',F:'',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -28,7 +28,7 @@ class GravityWallRankine extends Component{
         function liv(cb){
             console.log("enter liv");
             for(let v = 0; v < keys.length; v++){
-                if(this.state[keys[v]] === ''){                    
+                if(this.state[keys[v]] === ''&& keys[v] !== 'Hp'){                    
                     return cb({ isValid : false, key : keys[v]});                                   
                 }
             }
@@ -75,8 +75,8 @@ class GravityWallRankine extends Component{
     }
 
     solveGravityWall(){
-        const {a, b, c, d , e , f, g, H ,q_ultimate,Beta,Phi,Phi1,F} = this.state;
-        let wall = new GravityRetainingWallRankine({a,b,c,d,e,f,g,H});
+        const {a, b, c, d , e , f, g, Ha ,q_ultimate,Beta,Phi,Phi1,F} = this.state;
+        let wall = new GravityRetainingWallRankine({a,b,c,d,e,f,g,Ha});
         wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1,phi : Phi, F : F});           
         this.setState({wall_obj : wall});
     }
@@ -89,43 +89,64 @@ class GravityWallRankine extends Component{
             <Input  value={this.state["Hp"]} onChange={this.handleChange.bind(this,"Hp")} />
         </InputGroup>
     </div>);
-        let mobilizedOutput = isNaN(this.state.Hp) ? "" : (         
+        let mobilizedOutput  = "";
+        if(hp !== ""){
+        mobilizedOutput =  (         
                 <Table responsive>
-                    <h5>Mobilising Passive Pressure in Front of the wall</h5>
+                    <h5>Mobilising Passive Pressure in Front of the wall....</h5>
                     <tbody>                        
+                    <tr>
+                            <td>P<sub>p</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pp(hp): 'N/A'}</td>
+                            <td>K<sub>p</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Kp(): 'N/A'}</td>
+                            <td>w<sub>8</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.w8(hp): 'N/A'}</td>
+                        </tr>
                         <tr>
+                            <td>X<sub>p</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmXp(hp): 'N/A'}</td>
+                            <td>X<sub>8</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmX8(): 'N/A'}</td>
+                            <td>M<sub>8</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentM8(hp): 'N/A'}</td>
+                        </tr>
+                        <tr>
+                        <td>M<sub>p</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.momentMp(hp): 'N/A'}</td>
                             <td>&sum;R<sub>v</sub></td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationRv_(hp): 'N/A'}</td>
                             <td>&sum;R<sub>h</sub></td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationRh_(hp): 'N/A'}</td>
-                            <td>&sum;M</td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationM_(hp): 'N/A'}</td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationRh_(hp): 'N/A'}</td>                            
                         </tr>
                         <tr>
+                        <td>&sum;M</td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.summationM_(hp): 'N/A'}</td>
                             <td>Lever arm of &sum;R<sub>v</sub></td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmSignRv_(hp): 'N/A'}</td>
                             <td>Eccentricity</td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.eccentricity(()=> this.state.wall_obj.leverArmSignRv_(hp)): 'N/A'}</td>
-                            <td>Maximum eccentricity</td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.max_eccentricity(): 'N/A'}</td>
-                        </tr>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.eccentricity(()=> this.state.wall_obj.leverArmSignRv_(hp)): 'N/A'}</td>                            
+                        </tr>                        
                         <tr>
+                        <td>Maximum eccentricity</td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.max_eccentricity(): 'N/A'}</td>
                             <td>Is Design efficient</td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isDesignEfficient(()=>this.state.wall_obj.eccentricity(()=> this.state.wall_obj.leverArmSignRv_(hp))) ? "YES" : "NO") : 'N/A'}</td>
                             <td>P<sub>max</sub></td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmax(()=>this.state.wall_obj.summationRv_(hp),()=>this.state.wall_obj.leverArmSignRv_(hp)): 'N/A'}</td>
-                            <td>P<sub>min</sub></td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmin(()=>this.state.wall_obj.summationRv_(hp),()=>this.state.wall_obj.leverArmSignRv_(hp)): 'N/A'}</td>
+                            
                         </tr>
-                        <tr>
+                        <tr><td>P<sub>min</sub></td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.Pmin(()=>this.state.wall_obj.summationRv_(hp),()=>this.state.wall_obj.leverArmSignRv_(hp)): 'N/A'}</td>
                             <td>Factor of safety</td>
-                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(hp): 'N/A'}  Is Ok? </td>
+                            <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(this.state.wall_obj.summationRv_(hp),this.state.wall_obj.summationRh_(hp),this.state.wall_obj.Pp(hp)): 'N/A'}</td>
                             <td>Is factor of safety ok</td>
                             <td>{GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isFactorSatisfied(this.state.wall_obj.factorOfSafety(hp)) ? 'YES':'NO'): 'N/A'}</td>
                         </tr>                        
                     </tbody>
                 </Table>
         );
+    }
 
         let output = (<Table responsive striped>
             <tbody>
@@ -294,7 +315,7 @@ class GravityWallRankine extends Component{
                                 <div className="col-md-2">
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">Ha</InputGroupAddon>
-                                        <Input  value={this.state["H"]} onChange={this.handleChange.bind(this,"H")} />
+                                        <Input  value={this.state["Ha"]} onChange={this.handleChange.bind(this,"Ha")} />
                                     </InputGroup>
                                 </div>
                             </div>
@@ -353,13 +374,13 @@ class GravityWallRankine extends Component{
                     <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img src={ require("../images/gravity_wall_rankine_preview")} />
+                        <img height="100%" width="100%" src={ require("../images/gravity_wall_rankine_preview")} />
                         </ModalBody>
                     </Modal>
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img src={ require("../images/gravity_wall_rankine_raw")} />
+                        <img height="100%" width="100%" src={ require("../images/gravity_wall_rankine_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>

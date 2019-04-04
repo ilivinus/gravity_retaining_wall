@@ -40,8 +40,19 @@ export default class Home extends React.Component {
                                 <CardText></CardText>
                                 <NavLink className="btn btn-sm btn-primary" href="/cantilever_dashboard">Enter</NavLink>                                                                
                             </CardBody>
-                        </Card>
+                        </Card><br/>
                     </Col>                    
+                </Row>
+                <Row>
+                    <Col md="6">
+                    <Card>
+                        <CardBody>
+                            <CardSubtitle>Anchored Sheet Pile Walls</CardSubtitle>
+                            <CardText>Free earth support method</CardText>
+                            <NavLink className="btn btn-sm btn-primary" href="/anchored_dashboard" >Enter</NavLink>
+                        </CardBody>
+                    </Card>
+                    </Col>
                 </Row>
                 
             </Jumbotron>
