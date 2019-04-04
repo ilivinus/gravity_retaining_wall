@@ -237,6 +237,12 @@ class CantileverWallUpSurface extends Component{
                                         <Input  value={this.state["H"]} onChange={this.handleChange.bind(this,"H")} />
                                     </InputGroup>
                                 </div>
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">r<sub>w</sub></InputGroupAddon>
+                                        <Input  value={this.state["rw"]} onChange={this.handleChange.bind(this,"rw")} />
+                                    </InputGroup>
+                                </div>
                             </div>
                         </div>
                     </div>
