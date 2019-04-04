@@ -3,9 +3,9 @@
  */
 var alg = require('algebra.js');
 
-var equ = alg.parse(`x^3 + 5.4 * x^2 - 21.3 * x - 41.7 = 0`);
-console.log(equ.toString());
-console.log(equ.solveFor("x"));
+// var equ = alg.parse(`x^3 + 5.4 * x^2 - 21.3 * x - 41.7 = 0`);
+// console.log(equ.toString());
+// console.log(equ.solveFor("x"));
 // var expr = new  alg.Expression("x");
 // expr = expr.multiply("x").multiply("x");
 
@@ -58,8 +58,6 @@ SheetPileWall.prototype.Kp = function () {
 SheetPileWall.prototype.D = function () {
     0.5 * this.r * this.Ka() * Math.pow(this.z1,2)  + (0.667 * this.z1 - this.z0)
     let f20 = this.r * this.z1 * this.Ka(false), f21 = (f20 * this.z2); //final should be f20 * D + f21
-
-
 }
 
 

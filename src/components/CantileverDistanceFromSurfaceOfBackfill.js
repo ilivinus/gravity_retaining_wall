@@ -326,7 +326,7 @@ class CantileverWallUpSurface extends Component{
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img height="100%" width="100%" src={ require("../images/cantilever_from_surface_preview")} />
+                        <img height="100%" width="100%" src={ require("../images/cantilever_from_surface_raw")} />
                         </ModalBody>
                     </Modal>
                     <br/>
