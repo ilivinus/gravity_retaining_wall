@@ -32,6 +32,7 @@ class CantileverWallUpSurface extends Component{
             this.setState({ [key]  : false });
         }
     }
+    
     toggle(who){
         this.setState({ [who] :!this.state[who]});
     }
