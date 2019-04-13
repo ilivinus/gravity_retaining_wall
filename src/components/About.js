@@ -1,6 +1,7 @@
 import React from 'react';
-import { Jumbotron, Button, Container } from 'reactstrap';
+import { Jumbotron, Button, Container, Card } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Row,Col } from 'reactstrap';
 
 export default class About extends React.Component {
     constructor(props) {
@@ -19,13 +20,18 @@ export default class About extends React.Component {
         return (
             <div>                
                 <Jumbotron>
-                    <h2 className="display-3">About the Project</h2>
-                    <p className="lead">This is a project on Gravity retaining wall calculation</p>
+                    <h1 className="display-3">About the RWall</h1>
+                    <h2>THIS PACKAGE ANALYSIZES THREE TYPES OF RETAINING WALLS</h2>
                     <hr className="my-2" />
-                    <p>This is a civil engineering masters' project</p>
-                    <p className="lead">
-                    <Button color="primary">Go Home</Button>
-                    </p>
+                    <ol>
+                        <li>GRAVITY RETAINING WALL</li>
+                        <li>CANTILEVER RETAINING WALL</li>
+                        <li>ANCHORED SHEET PILE WALL</li>
+                    </ol>
+                    <Row>
+                        <Col><Button color="success"><Link to="/" style={{ color : 'white'}}>Back</Link></Button></Col>
+                        <Col><Button color="warning"><Link to="/home" style={{color : 'white'}}>Next >></Link></Button></Col>                 
+                    </Row>
                 </Jumbotron>
             </div>
         );

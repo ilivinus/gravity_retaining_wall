@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Home from './Home';
 import About from './components/About';
+import Welcome from './components/Welcome'
 import GravityWallColumn from './components/GravityWallColumn';
 import GravityWallRankine from './components/GravityWallRankine';
 import CantileverWallDown from './components/CantileverWallHorizBackfillTableBelowWallBase';
@@ -51,7 +52,7 @@ export default class App extends Component{
             <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink href="/">Home</NavLink>
+                        <NavLink href="/home">Home</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink href="/about">About</NavLink>
@@ -75,7 +76,8 @@ export default class App extends Component{
                 </Nav>
                 </Collapse>
             </Navbar> 
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Welcome} />
+            <Route exact path="/home" component={Home} /> 
             <Route path="/gravity_wall_column" component={GravityWallColumn} />
             <Route path="/gravity_wall_rankine" component={GravityWallRankine} />
             <Route path="/cantilever_down" component={ CantileverWallDown } />
