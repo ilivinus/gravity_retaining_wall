@@ -43,35 +43,31 @@ function GravityRetainingWall(opt){
     }
 }
 
-GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1,rho, phi, F}){
-    if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate');
-    if(!beta || beta < 0) throw new Error('Invalid entry for beta');
-    if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1');
-    if(!rho || rho < 0) throw new Error('Invalid entry for epsilon');
-    if(!phi || phi < 0) throw new Error('Invalid entry for phi');
-    if(!F || F < 0) throw new Error('Invalid entry for F');
-    this.q_ultimate = Number(q_ultimate);
-    this.beta = Number(beta);
-    this.phi1 = Number(phi1);
-    this.rho = Number(rho);
-    this.phi = Number(phi);
-    this.F = Number(F);
-    this.q_allow = Number(this.q_ultimate/this.F);
-
-    // return{
-    //     q_ultimate,
-    //     beta,
-    //     phi1,
-    //     phi,
-    //     F,
-    //     q_allow : Number(q_ultimate/F)
-    // };
+GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1,rho, phi, F, r, rc}){
+    if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate')
+    if(!beta || beta < 0) throw new Error('Invalid entry for beta')
+    if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1')
+    if(!rho || rho < 0) throw new Error('Invalid entry for epsilon')
+    if(!phi || phi < 0) throw new Error('Invalid entry for phi')
+    if(!F || F < 0) throw new Error('Invalid entry for F')
+    if(!r || r < 0) throw new Error('Invalid entry for r')
+    if(!rc || rc < 0) throw new Error('Invalid entry for rc')
+    this.q_ultimate = Number(q_ultimate)
+    this.beta = Number(beta)
+    this.phi1 = Number(phi1)
+    this.rho = Number(rho)
+    this.phi = Number(phi)
+    this.F = Number(F)
+    this.q_allow = Number(this.q_ultimate/this.F)
+    this.r = Number(r)
+    this.rc = Number(rc)
+    
 }
 
 //GravityRetainingWall.prototype.
 
 GravityRetainingWall.prototype.Pa = function(){
-    return (0.5 * constants.r * Math.pow(this.wall_height,2) * this.Ka()).toDec(2);
+    return (0.5 * this.r * Math.pow(this.wall_height,2) * this.Ka()).toDec(2);
 }
 
 GravityRetainingWall.prototype.alpha = function(){
@@ -90,28 +86,28 @@ GravityRetainingWall.prototype.Ka = function(){
  * For W1 (Shape 1, triangle)
  */
 GravityRetainingWall.prototype.w1 = function(){
-    this.W1 = 0.5 * this.g * (this.wall_height - this.f) * constants.rc;
+    this.W1 = 0.5 * this.g * (this.wall_height - this.f) * this.rc;
     return this.W1.toDec(2);
 }
 /**
  * For W2 (Shape 2, rectangle)
  */
 GravityRetainingWall.prototype.w2 = function(){
-    this.W2 = this.top_thickness * (this.wall_height - this.f)* constants.rc;
+    this.W2 = this.top_thickness * (this.wall_height - this.f)* this.rc;
     return this.W2.toDec(2);
 }
 /**
  * For W3 (Shape 3, triangle)
  */
 GravityRetainingWall.prototype.w3 =  function(){
-    this.W3 = 0.5 * this.b * (this.wall_height - this.f) * constants.rc;
+    this.W3 = 0.5 * this.b * (this.wall_height - this.f) * this.rc;
     return this.W3.toDec(2);
 }
 /**
  * For W3 (Shape 4, rectangle)
  */
 GravityRetainingWall.prototype.w4 = function(){
-    this.W4 = this.base_width * this.f * constants.rc;
+    this.W4 = this.base_width * this.f * this.rc;
     return this.W4.toDec(2);
 }
 /**
@@ -260,7 +256,7 @@ GravityRetainingWall.prototype.isFactorSatisfied = function(){
 
 GravityRetainingWall.prototype.w5 = function(Hp){
     if(isNaN(Hp)) throw new Error("Invalid argument. Not a number");
-    this.W5 =  (Hp - this.f) * this.toe_length * constants.r;
+    this.W5 =  (Hp - this.f) * this.toe_length * this.r;
     return this.W5.toDec(2);
 }
 
@@ -273,7 +269,7 @@ GravityRetainingWall.prototype.Kp = function(){
  */
 GravityRetainingWall.prototype.Pp = function(Hp){
     if(isNaN(Hp)) throw new Error("Invalid arugment. Not a number");
-    return ((0.5 * constants.r * Math.pow(Hp,2)) * this.Kp()).toDec(2);
+    return ((0.5 * this.r * Math.pow(Hp,2)) * this.Kp()).toDec(2);
 }
 
 GravityRetainingWall.prototype.leverArmX5 = function(){

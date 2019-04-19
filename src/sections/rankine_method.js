@@ -45,18 +45,21 @@ function GravityRetainingWall(opt){
     }
 }
 
-GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1, phi, F}){
-    if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate');
-    if(!beta || beta < 0) throw new Error('Invalid entry for beta');
-    if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1');
-    
-    if(!phi || phi < 0) throw new Error('Invalid entry for phi');
-    if(!F || F < 0) throw new Error('Invalid entry for F');
+GravityRetainingWall.prototype.givenData = function({q_ultimate, beta, phi1, phi, F, r, rc}){
+    if(!q_ultimate || q_ultimate < 0) throw new Error('Invalid entry for q_ultimate')
+    if(!beta || beta < 0) throw new Error('Invalid entry for beta')
+    if(!phi1 || phi1 < 0) throw new Error('Invalid entry for phi1')
+    if(!phi || phi < 0) throw new Error('Invalid entry for phi')
+    if(!F || F < 0) throw new Error('Invalid entry for F')
+    if(!r || r < 0) throw new Error('Invalid entry for r')
+    if(!rc || rc < 0) throw new Error('Invalid entry for rc')
     this.q_ultimate = Number(q_ultimate);
     this.beta = Number(beta);
     this.phi1 = Number(phi1);
     this.phi = Number(phi);
-    this.F = F;
+    this.F = Number(F);
+    this.r = Number(r)
+    this.rc = Number(rc)
     this.q_allow = Number(this.q_ultimate/this.F);
     this.h = (this.g + this.heel_length) * this.Mathh._tan(this.beta);
     this.H = this.wall_height + this.h;

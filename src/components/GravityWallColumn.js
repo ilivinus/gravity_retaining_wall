@@ -15,16 +15,15 @@ class GravityWallColumn extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: '',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',wall_obj : {}};
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false,
+             Hp: '',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',r : '', rc : '',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
         this.togglesClose = this.togglesClose.bind(this);
     }
 
-    
     togglesClose(){
-        console.log("Entered toggle close");
         for(let i = 1; i < 5; i++){
             let key = "collapse" + i;
            // this.setState({ collapse : false });    
@@ -72,11 +71,10 @@ class GravityWallColumn extends Component{
     }
 
     solveGravityWall(){
-        const {a, b, c, d , e , f, g, h,q_ultimate,Beta,Phi,Phi1,Rho,F} = this.state;
-        let wall = new GravityRetainingWall({a,b,c,d,e,f,g,h});
-        wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1, rho : Rho,phi : Phi, F : F});                     
-        
-        this.setState({wall_obj : wall});
+        const {rc, r, a, b, c, d , e , f, g, h,q_ultimate,Beta,Phi,Phi1,Rho,F} = this.state
+        let wall = new GravityRetainingWall({a,b,c,d,e,f,g,h})
+        wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1, rho : Rho,phi : Phi, F : F, r : r, rc : rc})
+        this.setState({wall_obj : wall})
     }
 
     render(){        
@@ -301,6 +299,18 @@ class GravityWallColumn extends Component{
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">H</InputGroupAddon>
                                         <Input  value={this.state["h"]} onChange={this.handleChange.bind(this,"h")} />
+                                    </InputGroup><br/>
+                                </div>
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">&gamma;</InputGroupAddon>
+                                        <Input  value={this.state["r"]} onChange={this.handleChange.bind(this,"r")} />
+                                    </InputGroup><br/>
+                                </div>
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">&gamma;c</InputGroupAddon>
+                                        <Input  value={this.state["rc"]} onChange={this.handleChange.bind(this,"rc")} />
                                     </InputGroup><br/>
                                 </div>
                             </div>

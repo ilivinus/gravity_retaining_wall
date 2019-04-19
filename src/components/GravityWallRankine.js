@@ -15,7 +15,7 @@ class GravityWallRankine extends Component{
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
             popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, Hp: '',a:'',b:'',
-            c:'',d:'',e:'',f:'',g:'',Ha:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',F:'',wall_obj : {}};
+            c:'',d:'',e:'',f:'',g:'',Ha:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',F:'',r : '',rc : '',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -75,9 +75,9 @@ class GravityWallRankine extends Component{
     }
 
     solveGravityWall(){
-        const {a, b, c, d , e , f, g, Ha ,q_ultimate,Beta,Phi,Phi1,F} = this.state;
+        const {a, b, c, d , e , f, g, Ha, r, rc ,q_ultimate,Beta,Phi,Phi1,F} = this.state;
         let wall = new GravityRetainingWallRankine({a,b,c,d,e,f,g,Ha});
-        wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1,phi : Phi, F : F});           
+        wall.givenData({ q_ultimate : q_ultimate, beta : Beta, phi1 : Phi1,phi : Phi, F : F, r : r, rc : rc });
         this.setState({wall_obj : wall});
     }
 
@@ -316,6 +316,18 @@ class GravityWallRankine extends Component{
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">Ha</InputGroupAddon>
                                         <Input  value={this.state["Ha"]} onChange={this.handleChange.bind(this,"Ha")} />
+                                    </InputGroup>
+                                </div>
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">&gamma;</InputGroupAddon>
+                                        <Input  value={this.state["r"]} onChange={this.handleChange.bind(this,"r")} />
+                                    </InputGroup><br/>
+                                </div>
+                                <div className="col-md-2">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">&gamma;c</InputGroupAddon>
+                                        <Input  value={this.state["rc"]} onChange={this.handleChange.bind(this,"rc")} />
                                     </InputGroup>
                                 </div>
                             </div>
