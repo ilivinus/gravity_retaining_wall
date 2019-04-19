@@ -40,18 +40,16 @@ class CantileverWithRankineAnalysis extends Component{
         this.setState({isValid : true});
         let keys = Object.keys(this.state);
         function liv(cb){
-            console.log("enter liv");
             for(let v = 0; v < keys.length; v++){
-                if(this.state[keys[v]] === ''){                    
-                    cb({ isValid : false});
-                    break;                
+                if(this.state[keys[v]] == ''){                    
+                    return cb({ isValid : false});               
                 }
             }
-            return cb();
+            return cb({ isValid : true});
         }
         liv.call(this,obj => {
             if(obj && !obj.isValid){ 
-                this.setState({isValid : false })
+                this.setState({isValid : false })                
             }else{ 
                 this.solveGravityWall(); 
                 this.toggle('modal2');
@@ -65,10 +63,12 @@ class CantileverWithRankineAnalysis extends Component{
     }
 
     solveGravityWall(){
-        const {a, b, c, d , e ,g, q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha } = this.state;
-        let wall = new CantileverRankineAnalysis({a,b,c,d,e,g});
-        wall.givenData({q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha });                
-        this.setState({wall_obj : wall});       
+        if(this.state.isValid){
+            const {a, b, c, d , e ,g, q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha } = this.state;
+            let wall = new CantileverRankineAnalysis({a,b,c,d,e,g});
+            wall.givenData({q_ultimate, phi1, rho, r, Beta, H, rc, c1, Ha });                
+            this.setState({wall_obj : wall});       
+        }
     }
 
     render(){
@@ -318,7 +318,7 @@ class CantileverWithRankineAnalysis extends Component{
                                 
                                     <Button className="col-md-3" color="green" onClick={this.handleSubmit.bind(this)} >Solve</Button>
                                     <div className="col-md-1"></div>
-                                    <Button className="col-md-3" color="warning" onClick={()=>"f"}>Diagram</Button>
+                                    <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')}>Diagram</Button>
                                     <div className="col-md-1"></div>
                                     <Button className="col-md-3" color="danger" onClick={()=>this.toggle('modal3')} >Preview</Button>
                             </div>
@@ -333,7 +333,7 @@ class CantileverWithRankineAnalysis extends Component{
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                            <img height="100%" width="100%" src={ require("../images/cantilever_with_rankine_raw")} />
+                            <img height="100%" width="100%" src={ require("../images/cantilever_with_rankine_preview")} />
                         </ModalBody>
                     </Modal>
                     <br/>
