@@ -11,7 +11,7 @@ class CantileverWall extends Component{
         this.state = {  isValid: true, collapse1: false, collapse2 : false,
              collapse3 : false,collapse4 : false,
              collapse5: false, collapse6: false,popoverOpen : false,
-             popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false,
+             popoverOpen2 : false, popoverOpen3 : false ,modal1 : false,modal: false, modal2: false, modal3 : false,
              a: '', b: '', c : '', 
              c1 : '', d : '', e : '', H : '', q_ultimate : '', q : '', rc : '', rsat : '',
              phi1 : '', phiB : '', F : '', r : '',wall_obj : {}};        
@@ -298,11 +298,13 @@ class CantileverWall extends Component{
                             
                             <br/>
                             <div className="row">
-                            <Button className="col-md-3" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button><br/>
+                            <Button className="col-md-2" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button><br/>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button><br/>
+                                <Button className="col-md-2" color="info" onClick={()=>this.toggle('modal1')} >Parameters</Button><br/>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
+                                <Button className="col-md-2" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button><br/>
+                                <div className="col-md-1"></div>
+                                <Button className="col-md-2" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
                             </div>
                         </div>
                     </div>
@@ -317,6 +319,33 @@ class CantileverWall extends Component{
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
                         <img height="100%" width="100%" src={ require("../images/cantilever_at_surface_raw")} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.modal1} toggle={()=>this.toggle('modal1')} className={styles.modalWidth} >
+                        <ModalHeader toggle={()=>this.toggle('modal1')}>Parameter Definitions</ModalHeader>
+                        <ModalBody>                            
+                            <ul>
+                                <li>q = surcharge</li>
+                                <li>a = top width of stem</li>
+                                <li>b = c = thickness of base slab</li>
+                                <li>d = toe length</li>
+                                <li>B = Base width</li>
+                                <li>e = heel length</li>
+                                <li>P<sub>o</sub> = Concentrated load</li>
+                                <li>&gamma;<sub>w</sub>= Unit weight of water</li>
+                                <li>&gamma;<sub>sat</sub> = Saturated unit weight</li>
+                                
+                                <li>C' = Cohesion  value (KN/m2)</li>
+                                <li>H = Total height of the wall</li>
+                                <li>q<sub>u</sub> = ultimate bearing capacity (KN/m2)</li>
+                                <li>&gamma;<sub>c</sub> = Unit weight of concrete</li>             
+                                <li>&Phi;' = Angle of shearing resistance or soil friction (o)</li>
+                                <li>&Phi; = &Phi;<sub>b</sub> = Angle of friction between the base of the wall and the foundation (o)</li>
+                                <li>&gamma;  = The unit weight of the backfill or soil</li>                                
+                                <li>&delta; = Angle of friction between the backface of the wall and the backfill or angle of wall friction (o)</li>
+                                <li>F = (factor of safety against bearing capacity of the soil)</li>
+                                <li>&beta; = Angle of inclination of the backfill with the horizontal base soil (o)</li>                                
+                            </ul>
                         </ModalBody>
                     </Modal>
                     <br/>

@@ -11,7 +11,7 @@ class Cohesive extends Component{
         this.handleChange = this.handleChange.bind(this);                
         this.state = {  isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,
             collapse4 : false, collapse5: false, collapse6: false,popoverOpen : false, 
-            popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 :false,
+            popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal1 : false, modal2: false, modal3 :false,
             r: '', rsat: '', rw : '', c1 : '', c2 : '', c3 : '', q1 : '', q2 : '', q3 : '', 
             z1 : '', z2 : '', z0  : '', F : '',wall_obj : {}};        
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -231,11 +231,13 @@ class Cohesive extends Component{
                             
                             <br/>
                             <div className="row">
-                            <Button className="col-md-3" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button>
+                                <Button className="col-md-2" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
+                                <Button className="col-md-2" color="info" onClick={()=>this.toggle('modal1')} >Parameters</Button>
                                 <div className="col-md-1"></div>
-                                <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
+                                <Button className="col-md-2" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
+                                <div className="col-md-1"></div>
+                                <Button className="col-md-2" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
                             </div>
                         </div>
                     </div>
@@ -250,6 +252,25 @@ class Cohesive extends Component{
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
                         <img height="100%" width="100%" src={ require("../images/sheetpile_cohesive_raw")} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.modal1} toggle={()=>this.toggle('modal1')} className={styles.modalWidth} >
+                        <ModalHeader toggle={()=>this.toggle('modal1')}>Parameter Definitions</ModalHeader>
+                        <ModalBody>                            
+                            <ul>
+                                <li>&gamma;<sub>sat</sub> = Saturated unit weight</li>
+                                <li>&gamma;<sub>w</sub> = unit weight of water</li>
+                                <li>&gamma; = unit weight of soil</li>
+                                <li>C<sub>1</sub>, C<sub>2</sub>, C<sub>3</sub> = Cohension values of first, second and third layers  respectively.</li>
+                                <li>&Phi;<sub>1</sub>, &Phi;<sub>2</sub>, &Phi;<sub>3</sub> = Angle of soil friction of first, second and third layers respectively.</li>
+                                <li>Z<sub>1</sub>, Z<sub>2</sub> = depth of first and second layer respectively.</li>
+                                <li>Z<sub>0</sub> = depth of the rod below the surface of the backfill</li>
+                                <li>D = depth of embedment of the pile</li>
+                                <li>F = z (factor of safety with respect to passive resistance)</li>
+                                <li>T = force in each tie rod</li>
+                                <li>F<sub>ar</sub> = The anchor rod force</li>
+                                <li>q = effective overburden pressure</li>
+                                </ul>
                         </ModalBody>
                     </Modal>
                     <br/>

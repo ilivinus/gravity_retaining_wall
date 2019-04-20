@@ -15,7 +15,7 @@ class GravityWallColumn extends Component{
         this.handleChange = this.handleChange.bind(this);
         //this.handlesubmit = this.handlesubmit.bind(this);
         this.state = {isValid: true, collapse1: false, collapse2 : false, collaspe3 : false,collapse4 : false,
-            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false,
+            popoverOpen : false, popoverOpen2 : false, popoverOpen3 : false ,modal: false, modal2: false, modal3 : false, modal1 : false,
              Hp: '',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:'',q_ultimate:'',Beta:'', Phi :'',Phi1:'',Rho:'',F:'',r : '', rc : '',wall_obj : {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
@@ -362,11 +362,13 @@ class GravityWallColumn extends Component{
                             <br/>
                             <div className="row">
                                 
-                                    <Button className="col-md-3" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button>
+                                    <Button className="col-md-2" color="success" onClick={this.handleSubmit.bind(this)} >Solve</Button>
                                     <div className="col-md-1"></div>
-                                    <Button className="col-md-3" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
+                                    <Button className="col-md-2" color="info" onClick={()=>this.toggle("modal1")} >Parameters</Button>
                                     <div className="col-md-1"></div>
-                                    <Button className="col-md-3" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
+                                    <Button className="col-md-2" color="warning" onClick={()=>this.toggle('modal')} >View Diagram</Button>
+                                    <div className="col-md-1"></div>
+                                    <Button className="col-md-2" color="danger" onClick={()=>this.toggle("modal3")} >Preview</Button>
                             </div>
                         </div>
                     </div>
@@ -381,6 +383,47 @@ class GravityWallColumn extends Component{
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
                             <img height="100%" width="100%" src={ require("../images/gravity_wall_column_raw")} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.modal1} toggle={()=>this.toggle('modal1')} className={styles.modalWidth} >
+                        <ModalHeader toggle={()=>this.toggle('modal1')}>Parameter Definitions</ModalHeader>
+                        <ModalBody>                            
+                            <ul>
+                                <li>a = Toe length of the wall (m)</li>
+                                <li>c = Top thickness of the wall (m)6</li>
+                                <li>d = Heel length of the wall (m)</li>
+                                <li>e = f = Base thickness of the wall (m)</li>
+                                <li>B = Base width of the wall (m)</li>
+                                <li>H = Total height of the wall (m)</li>
+                                <li>&beta; = Angle of inclination of the backfill with the horizontal base soil (o)</li>
+                                <li>&Phi;' = Angle of shearing resistance or soil friction (o)</li>
+                                <li>C' = Cohesion  value (KN/m2)</li>
+                                <li>&gamma;  = The unit weight of the backfill or soil</li>
+                                <li>q<sub>u</sub> = ultimate bearing capacity (KN/m2)</li>
+                                <li>&Phi; = Angle of friction between the base of the wall and the foundation (o)</li>
+                                <li>&gamma;<sub>c</sub> = the unit weight of concrete (KN/m3)</li>
+                                <li>&delta; = Angle of friction between the backface of the wall and the backfill or angle of wall friction (o)</li>
+                                <li>F = Z (factor of safety against bearing capacity of the soil)</li>
+                                <li>&alpha; = Angle of inclination of the backface of the wall with the horizontal (o)</li>
+                                <li>H<sub>p</sub> = depth of soil in front of the wall (m)</li>
+                                <li>K<sub>a</sub> = active earth pressure coefficient</li>
+                                <li>P<sub>a</sub> = active force (KN)</li>
+                                <li>H<sub>a</sub> = Sum of height of the wall and height of inclined backfill (m)</li>
+                                <li>P<sub>h</sub> = Horizontal component of active force (KN)</li>
+                                <li>P<sub>v</sub> = Vertical component of active force (KN)</li>
+                                <li>&sum;P<sub>h</sub> = Total force causing sliding (KN)</li>
+                                <li>&sum;P<sub>r</sub> = Total force resisting sliding (KN)</li>
+                                <li>X = Lever arm (m)</li>
+                                <li>e = Eccentricity (m)</li>
+                                <li>P<sub>max</sub> = maximum base pressure (KN/m2)</li>
+                                <li>P<sub>min</sub> = minimum base pressure (KN/m2)</li>
+                                <li>F<sub>s</sub> = Factor of safety against sliding</li>
+                                <li>e<sub>max</sub> = Maximum eccentricity(m)</li>
+                                <li>&sum;M = Summation of the total moment</li>
+                                <li>P<sub>p</sub> = Passive pressure(KN)</li>
+                                <li>K<sub>p</sub> = Passive earth pressure coefficient</li>
+
+                            </ul>
                         </ModalBody>
                     </Modal>
                     <br/>
