@@ -26,7 +26,6 @@ class GravityWallRankine extends Component{
         this.setState({isValid : true});
         let keys = Object.keys(this.state);
         function liv(cb){
-            console.log("enter liv");
             for(let v = 0; v < keys.length; v++){
                 if(this.state[keys[v]] === ''&& keys[v] !== 'Hp'){                    
                     return cb({ isValid : false, key : keys[v]});                                   
@@ -368,7 +367,7 @@ class GravityWallRankine extends Component{
                                         <Input  value={this.state["F"]} onChange={this.handleChange.bind(this,"F")} />
                                     </InputGroup>
                                 </div>
-                                {GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isFactorSatisfied() ? "":mobilizedInput) : ""}
+                                {GravityRetainingWallRankine.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isDesignEfficient(()=>this.state.wall_obj.eccentricity(()=>this.state.wall_obj.leverArmSignRv())) ? mobilizedInput : "") : ""}
                             </div>
                             
                             <br/>

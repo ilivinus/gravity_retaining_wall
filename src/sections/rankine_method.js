@@ -254,17 +254,13 @@ GravityRetainingWall.prototype.factorOfSafety = function(){
     let sumRv = arguments.length > 0 ?  arguments[0] : this.summationRv();
     let sumRh = arguments.length > 1 ? arguments[1] : this.summationRh();
     let Pp = arguments.length > 2 ? arguments[2] : 0;
-    console.log("Livinus");
-    console.log(sumRv);
-    console.log(sumRh);
-    console.log(Pp);
-    console.log("End");
     return ((sumRv * this.Mathh._tan(this.phi) + Pp) / sumRh).toDec(2);
 }
 
 GravityRetainingWall.prototype.isFactorSatisfied = function(Hp){
-    let cal = typeof(Hp) === undefined ? this.factorOfSafety() : Hp;
-    return cal > constants.factorConst;
+    //let cal = typeof(Hp) === undefined ? this.factorOfSafety() : Hp;
+    //return cal >= constants.factorConst;
+    return this.factorOfSafety() >= constants.factorConst;
 }
 
 

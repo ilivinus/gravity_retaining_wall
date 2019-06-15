@@ -86,7 +86,6 @@ class GravityWallColumn extends Component{
         </InputGroup>
     </div>);
         let mobilizedOutput = "";
-        console.log("HEllo :"+ hp);
         if(hp !== ""){
             mobilizedOutput =  (         
                 <Table responsive>
@@ -220,7 +219,7 @@ class GravityWallColumn extends Component{
                 <td>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.leverArmOfRv(): 'N/A' }</td>
                 <td>Eccentricity</td>
                 <td><Button id="popover2" onClick={()=>this.handleToggle("popoverOpen2")}>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.eccentricity(): 'N/A' }</Button>
-                <Popover placement="bottom" isOpen={this.state.popoverOpen2} target="popover2" toggle={this.togglePop2}>
+                <Popover placement="bottom" isOpen={this.state.popoverOpen2} target="popover2" toggle={()=>this.toggle("popoverOpen2")}>
                     <PopoverBody>Is design Efficient : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isDesignEfficient(()=>this.state.wall_obj.eccentricity()) ? "YES": "NO"): 'N/A' }</PopoverBody>
                 </Popover></td>
                 <td>Maximum eccentricity</td>
@@ -232,8 +231,8 @@ class GravityWallColumn extends Component{
                 <td>P<sub>min</sub></td>
                 <td>{GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.minPressure(): 'N/A'}</td>
                 <td>Factor of safety against sliding (F)</td>
-                <td><Button id="popover3" onClick={()=>this.handleToggle("popoverOpen3")}>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(): 'N/A' }</Button>
-                <Popover placement="bottom" isOpen={this.state.popoverOpen3} target="popover3" toggle={this.togglePop3}>
+                <td><Button id="popover3" onClick={() => this.handleToggle("popoverOpen3")}>{ GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? this.state.wall_obj.factorOfSafety(): 'N/A' }</Button>
+                <Popover placement="bottom" isOpen={this.state.popoverOpen3} target="popover3" toggle={()=>this.toggle("popoverOpen3")}>
                     <PopoverBody>Is factor satisfied : { GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isFactorSatisfied() ? "YES": "NO" ): 'N/A' }</PopoverBody>
                 </Popover></td>                
             </tr>
@@ -357,7 +356,7 @@ class GravityWallColumn extends Component{
                                         <Input  value={this.state["F"]} onChange={this.handleChange.bind(this,"F")} />
                                     </InputGroup>
                                 </div>
-                                {GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ? (this.state.wall_obj.isFactorSatisfied() ? "":mobilizedInput) : ""}
+                                {GravityRetainingWall.prototype.isPrototypeOf(this.state.wall_obj) ?(this.state.wall_obj.isDesignEfficient(()=>this.state.wall_obj.eccentricity()) ? mobilizedInput : "") : ""}
                             </div>                            
                             <br/>
                             <div className="row">
