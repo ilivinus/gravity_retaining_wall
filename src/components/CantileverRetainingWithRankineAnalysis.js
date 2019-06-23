@@ -41,7 +41,7 @@ class CantileverWithRankineAnalysis extends Component{
         let keys = Object.keys(this.state);
         function liv(cb){
             for(let v = 0; v < keys.length; v++){
-                if(this.state[keys[v]] == ''){                    
+                if(this.state[keys[v]] === ''){    
                     return cb({ isValid : false});               
                 }
             }

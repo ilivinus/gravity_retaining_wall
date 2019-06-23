@@ -43,7 +43,6 @@ class CantileverWall extends Component{
         this.setState({isValid : true});
         let keys = Object.keys(this.state);
         function liv(cb){
-            console.log("enter liv");
             for(let v = 0; v < keys.length; v++){
                 if(this.state[keys[v]] === ''){                    
                    return  cb({ isValid : false});                                    
@@ -54,8 +53,7 @@ class CantileverWall extends Component{
         liv.call(this,obj => {
             if(obj && !obj.isValid){ 
                 this.setState({isValid : false })
-            }else{ 
-                
+            }else{                 
                 this.solveGravityWall(); 
                 this.toggle('modal2');
             }});
@@ -72,7 +70,7 @@ class CantileverWall extends Component{
         //CantileverRetainingWall({ a: 0.30, b: 0.30, c : 0.30, c1 : 0, d : 0.8, e : 2.9, H : 5})
         let wall = new CantileverRetainingWall({a,b,c,c1,d,e,H});
         wall.givenData({ q_ultimate : q_ultimate, q : q, rc : rc, rsat : 0, phi1 : phi1, phiB : phiB, F : F, r : r });
-        console.log(this.state);
+        
         
         this.setState({wall_obj : wall});
     }
