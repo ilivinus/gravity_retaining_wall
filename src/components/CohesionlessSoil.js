@@ -250,13 +250,13 @@ class Cohesionless extends Component{
                     <Modal isOpen={this.state.modal3} toggle={()=>this.toggle('modal3')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal3')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img height="100%" width="100%" src={ require("../images/sheetpile_cohessionless2")} />
+                        <img height="100%" width="100%" src={ require("../images/sheetpile_cohessionless_preview")} />
                         </ModalBody>
                     </Modal>
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                        <img height="100%" width="100%" src={ require("../images/sheetpile_ cohessionless1")} />
+                        <img height="100%" width="100%" src={ require("../images/sheetpile_cohessionless_raw")} />
                         </ModalBody>
                     </Modal>
                     <Modal isOpen={this.state.modal1} toggle={()=>this.toggle('modal1')} className={styles.modalWidth} >

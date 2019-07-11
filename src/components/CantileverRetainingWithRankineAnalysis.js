@@ -335,7 +335,7 @@ class CantileverWithRankineAnalysis extends Component{
                     <Modal isOpen={this.state.modal} toggle={()=>this.toggle('modal')} className={styles.modalWidth} >
                         <ModalHeader toggle={()=>this.toggle('modal')}>Diagram</ModalHeader>
                         <ModalBody>
-                            <img height="100%" width="100%" src={ require("../images/cantilever_with_rankine_preview")} />
+                            <img height="100%" width="100%" src={ require("../images/cantilever_with_rankine_diag")} />
                         </ModalBody>
                     </Modal>
                     <Modal isOpen={this.state.modal1} toggle={()=>this.toggle('modal1')} className={styles.modalWidth} >
